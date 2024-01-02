@@ -188,4 +188,9 @@ export class TourPageComponent {
                 "https://imgs.search.brave.com/udmDGOGRJTYO6lmJ0ADA03YoW4CdO6jPKGzXWvx1XRI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAyLzY4LzU1LzYw/LzM2MF9GXzI2ODU1/NjAxMl9jMVdCYUtG/TjVyalJ4UjJleVYz/M3puSzRxblllS1pq/bS5qcGc";
         }
     }
+
+    getRoundedRating(): number {
+        if(!this.tour || !this.tour.averageRating) return 0;
+        return parseFloat(this.tour.averageRating.toFixed(2));
+    }
 }
