@@ -167,6 +167,7 @@ export class TourSearchComponent implements OnInit {
                 this.totalCount = result.totalCount;
                 console.log(this.tours);
                 this.setPages();
+                this.scrollToTop();
             },
             error: errData => {
                 console.log(errData);
@@ -636,5 +637,12 @@ export class TourSearchComponent implements OnInit {
             this.onSearch(1);
         }
         this.totalCount = this.tours.length;
+    }
+
+    scrollToTop(): void {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
     }
 }
