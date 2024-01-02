@@ -93,29 +93,34 @@ export class NavbarComponent implements OnInit {
     ngOnInit(): void {
         this.authService.user$.subscribe(user => {
             this.user = user;
-            if (this.user.id !== 0 && this.user.role != "administrator") {
+            if (this.user.id !== 0 && this.user.role !== "administrator") {
+                this.getUnseenNotifications();
                 this.checkNotifications = this.source.subscribe(val =>
                     this.getUnseenNotifications(),
                 );
             }
         });
-        // this.getUnseenNotifications();
+
+        this.stakeholderService.notifications$.subscribe(notifications => {
+            this.notificationNumber = notifications;
+        });
     }
 
     getUnseenNotifications() {
-        // console.log("subscribe");
         if (this.user!.id !== 0) {
             this.stakeholderService.countNotifications().subscribe({
                 next: (result: number) => {
                     this.marketplaceService.getInvitations().subscribe({
-                        next: (invitations: PagedResults<ClubInvitationWithClubAndOwnerName>) => {
-                            this.notificationNumber = result + invitations.totalCount;
-                            console.log(`Notification count: ${this.notificationNumber}`)
+                        next: (
+                            invitations: PagedResults<ClubInvitationWithClubAndOwnerName>,
+                        ) => {
+                            this.notificationNumber =
+                                result + invitations.totalCount;
                         },
-                        error: (errData) => {
-                          console.log(errData);
-                        }
-                      })
+                        error: errData => {
+                            console.log(errData);
+                        },
+                    });
                 },
             });
         }
