@@ -212,7 +212,7 @@ export class StakeholderService {
         notificationId: number,
     ): Observable<ProblemResolvingNotification> {
         let counter = this.notifications$.value;
-        this.setNotificationCount(counter - 1);
+        this.setNotificationCount(counter);
         return this.http.get<ProblemResolvingNotification>(
             environment.apiHost +
                 "notifications/problems/set-seen/" +
@@ -259,7 +259,7 @@ export class StakeholderService {
         notificationId: number,
     ): Observable<ShoppingNotification> {
         let counter = this.notifications$.value;
-        this.setNotificationCount(counter - 1);
+        this.setNotificationCount(counter);
         return this.http.get<ShoppingNotification>(
             environment.apiHost +
                 "shoppingNotifications/set-seen/" +

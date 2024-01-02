@@ -101,8 +101,8 @@ export class NavbarComponent implements OnInit {
             }
         });
 
-        this.stakeholderService.notifications$.subscribe(notifications => {
-            this.notificationNumber = notifications;
+        this.stakeholderService.notifications$.subscribe(_ => {
+            this.getUnseenNotifications();
         });
     }
 
@@ -110,17 +110,21 @@ export class NavbarComponent implements OnInit {
         if (this.user!.id !== 0) {
             this.stakeholderService.countNotifications().subscribe({
                 next: (result: number) => {
-                    this.marketplaceService.getInvitations().subscribe({
-                        next: (
-                            invitations: PagedResults<ClubInvitationWithClubAndOwnerName>,
-                        ) => {
-                            this.notificationNumber =
-                                result + invitations.totalCount;
-                        },
-                        error: errData => {
-                            console.log(errData);
-                        },
-                    });
+                    if (this.user?.role === "tourist") {
+                        this.marketplaceService.getInvitations().subscribe({
+                            next: (
+                                invitations: PagedResults<ClubInvitationWithClubAndOwnerName>,
+                            ) => {
+                                this.notificationNumber =
+                                    result + invitations.totalCount;
+                            },
+                            error: errData => {
+                                console.log(errData);
+                            },
+                        });
+                    } else {
+                        this.notificationNumber = result;
+                    }
                 },
             });
         }
