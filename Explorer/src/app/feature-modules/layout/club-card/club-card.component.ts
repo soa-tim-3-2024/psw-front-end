@@ -14,11 +14,23 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { ClubMember } from "../../marketplace/model/club-member.model";
 import { Club } from "../../marketplace/model/club.model";
+import { animate, style, transition, trigger } from "@angular/animations";
 
 @Component({
     selector: "xp-club-card",
     templateUrl: "./club-card.component.html",
     styleUrls: ["./club-card.component.css"],
+    animations: [
+        trigger("fadeIn", [
+            transition(":enter", [
+                style({ opacity: 0, transform: "translateX(-40px)" }),
+                animate(
+                    "0.5s ease",
+                    style({ opacity: 1, transform: "translateX(0)" }),
+                ),
+            ]),
+        ]),
+    ],
 })
 export class ClubCardComponent {
     @Output() editClubClicked = new EventEmitter<Club>();
