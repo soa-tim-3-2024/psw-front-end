@@ -23,6 +23,8 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BlogModule } from "../blog/blog.module";
+import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 @NgModule({
     declarations: [
@@ -42,6 +44,8 @@ import { BlogModule } from "../blog/blog.module";
         ReviewCardComponent,
         PublicKeypointNotificationCardComponent,
         PageNotFoundComponent,
+        TermsOfServiceComponent,
+        PrivacyPolicyComponent
     ],
     imports: [
         CommonModule,
@@ -62,7 +66,7 @@ import { BlogModule } from "../blog/blog.module";
         TourCardComponent,
         ReviewCardComponent,
         PublicKeypointNotificationCardComponent,
-        ClubCardComponent,
+        ClubCardComponent
     ],
 })
 export class LayoutModule {}

@@ -48,6 +48,7 @@ import {
     faBoxOpen,
     faBarChart,
     faCheckSquare,
+    faScroll
 } from "@fortawesome/free-solid-svg-icons";
 import { StakeholderService } from "../../stakeholder/stakeholder.service";
 import { interval, Subscription } from "rxjs";
@@ -164,6 +165,18 @@ export class NavbarComponent implements OnInit {
         }
     }
 
+    openTranslate(): void {
+        window.open('http://localhost:4200/translate', '_blank');
+    }
+
+    showContact(): void {
+        const documentHeight = document.body.scrollHeight;
+        window.scrollTo({
+          top: documentHeight,
+          behavior: 'smooth'
+        });
+    }
+
     faChevronDown = faChevronDown;
     faQuestionCircle = faQuestionCircle;
     faPhone = faPhone;
@@ -199,4 +212,5 @@ export class NavbarComponent implements OnInit {
     faBoxOpen = faBoxOpen;
     faBarChart = faBarChart;
     faCheckSquare = faCheckSquare;
+    faScroll = faScroll;
 }
