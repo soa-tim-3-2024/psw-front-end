@@ -15,6 +15,7 @@ import {
 import { ClubMember } from "../../marketplace/model/club-member.model";
 import { Club } from "../../marketplace/model/club.model";
 import { animate, style, transition, trigger } from "@angular/animations";
+import { NotifierService } from "angular-notifier";
 
 @Component({
     selector: "xp-club-card",
@@ -50,6 +51,7 @@ export class ClubCardComponent {
     constructor(
         private service: MarketplaceService,
         private authService: AuthService,
+        private notifier: NotifierService
     ) {}
 
     ngOnInit(): void {
@@ -113,6 +115,7 @@ export class ClubCardComponent {
         this.service.sendClubJoinRequest(this.user.id, this.club.id).subscribe({
             next: () => {
                 this.getClubJoinRequests();
+                this.notifier.notify('success', 'Successfuly sent a join request.');
             },
             error: errData => {
                 console.log(errData);
