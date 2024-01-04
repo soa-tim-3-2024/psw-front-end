@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { 
   faPhone, 
-  faEnvelope,
-  
+  faEnvelope
  } from '@fortawesome/free-solid-svg-icons';
  import { 
   faFacebookF,

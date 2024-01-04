@@ -42,7 +42,7 @@
 }
 
 .question:hover { 
-    background-color: rgba(var(--clr-primary-500), 0.4);
+    background-color: rgba(var(--clr-primary-500), 1);
 }
 
 .question:hover .question-text { 

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ContactComponent } from '../contact/contact.component';
 
 @Component({
   selector: 'xp-privacy-policy',
@@ -6,11 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./privacy-policy.component.css']
 })
 export class PrivacyPolicyComponent {
+  constructor(
+    public dialogRef: MatDialog,
+  ) {}
+
   showContact(): void {
-    const documentHeight = document.body.scrollHeight;
-    window.scrollTo({
-      top: documentHeight,
-      behavior: 'smooth'
-    });
+    this.dialogRef.open(ContactComponent);
   }
 }

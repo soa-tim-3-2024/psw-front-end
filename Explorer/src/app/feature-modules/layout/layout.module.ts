@@ -28,6 +28,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { FrequentlyAskedQuestionsComponent } from './frequently-asked-questions/frequently-asked-questions.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { CompanyComponent } from './company/company.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
     declarations: [
@@ -51,7 +52,8 @@ import { CompanyComponent } from './company/company.component';
         PrivacyPolicyComponent,
         FrequentlyAskedQuestionsComponent,
         AboutUsComponent,
-        CompanyComponent
+        CompanyComponent,
+        ContactComponent
     ],
     imports: [
         CommonModule,

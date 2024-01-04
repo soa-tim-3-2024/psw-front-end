@@ -58,6 +58,7 @@ import { RatingFormComponent } from "../../marketplace/rating-form/rating-form.c
 import { PagedResults } from "src/app/shared/model/paged-results.model";
 import { ClubInvitationWithClubAndOwnerName } from "../../marketplace/model/club-invitation-with-club-and-owner-name.model";
 import { MarketplaceService } from "../../marketplace/marketplace.service";
+import { ContactComponent } from "../contact/contact.component";
 //import { } from "@fortawesome/free-regular-svg-icons";
 
 @Component({
@@ -181,11 +182,7 @@ export class NavbarComponent implements OnInit {
     }
 
     showContact(): void {
-        const documentHeight = document.body.scrollHeight;
-        window.scrollTo({
-          top: documentHeight,
-          behavior: 'smooth'
-        });
+        this.dialogRef.open(ContactComponent);
     }
 
     faChevronDown = faChevronDown;

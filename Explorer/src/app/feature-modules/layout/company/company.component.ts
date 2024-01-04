@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { faComputer } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { MatDialog } from '@angular/material/dialog';
+import { ContactComponent } from '../contact/contact.component';
 
 @Component({
   selector: 'xp-company',
@@ -31,15 +33,15 @@ export class CompanyComponent{
     { name: "Boško Kulušic", job: "Full stack developer", image: this.image, linkedIn: "https://www.linkedin.com/in/boskokulusic/", gitHub: "https://github.com/boskokul"}
   ];
 
+  constructor(
+    public dialogRef: MatDialog,
+  ) {}
+
   openSocials(social: string): void {
     window.open(social, '_blank');
   }
 
   showContact(): void {
-    const documentHeight = document.body.scrollHeight;
-    window.scrollTo({
-      top: documentHeight,
-      behavior: 'smooth'
-    });
+    this.dialogRef.open(ContactComponent);
   }
 }

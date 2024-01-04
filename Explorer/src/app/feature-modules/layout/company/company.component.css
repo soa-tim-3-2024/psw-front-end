@@ -184,6 +184,7 @@
     font-family: var(--fnt-body);
     font-size: 1.5rem;
     font-weight: 500;
+    cursor: default;
 }
 
 .card-job {
@@ -192,11 +193,13 @@
     transition: color 0.15s;
     font-family: var(--fnt-body);
     font-size: 1rem;
+    cursor: default;
 }
 
 .computer {
     width: 100%;
-    padding-inline: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.25rem;
     color: rgba(var(--clr-text), 1);
     transition: color 0.15s;
     font-family: var(--fnt-body);
@@ -241,7 +244,7 @@
 }
 
 .github:hover {
-    background-color: rgba(15, 15, 15, 1);
+    background-color: rgba(25, 25, 25, 1);
 }
 
 .github-logo {
@@ -268,7 +271,7 @@
 }
 
 .linked-in:hover .linked-in-background{
-    background-color: rgba(0, 119, 181, 0.1);
+    background-color: rgba(0, 119, 181, 0.2);
 }
 
 .linked-in-background {
@@ -287,7 +290,8 @@
 .linked-in-logo {
     color: rgba(0, 119, 181, 1);
     font-size: 1.5rem;
-    margin-left: 0.5rem;
+    margin-left: 0.125rem;
+    margin-bottom: 0.0625rem;
 }
 
 .linked-in-text {
