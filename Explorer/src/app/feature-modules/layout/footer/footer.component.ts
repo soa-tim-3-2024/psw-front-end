@@ -11,7 +11,6 @@ import {
   faTiktok,
   faYoutube
 } from '@fortawesome/free-brands-svg-icons';
-import { ThemeService } from 'src/app/infrastructure/theme/theme.service';
 
 @Component({
   selector: 'xp-footer',

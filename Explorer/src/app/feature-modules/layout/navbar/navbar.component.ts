@@ -49,7 +49,8 @@ import {
     faCheckSquare,
     faScroll,
     faFolderClosed,
-    faCircleInfo
+    faCircleInfo,
+    faComputer
 } from "@fortawesome/free-solid-svg-icons";
 import { StakeholderService } from "../../stakeholder/stakeholder.service";
 import { interval, Subscription } from "rxjs";
@@ -215,4 +216,5 @@ export class NavbarComponent implements OnInit {
     faCheckSquare = faCheckSquare;
     faScroll = faScroll;
     faCircleInfo = faCircleInfo;
+    faComputer = faComputer;
 }
