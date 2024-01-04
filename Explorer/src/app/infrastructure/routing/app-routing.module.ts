@@ -64,6 +64,7 @@ import { EncounterListComponent } from "src/app/feature-modules/encounter/encoun
 import { TermsOfServiceComponent } from "src/app/feature-modules/layout/terms-of-service/terms-of-service.component";
 import { PrivacyPolicyComponent } from "src/app/feature-modules/layout/privacy-policy/privacy-policy.component";
 import { FrequentlyAskedQuestionsComponent } from "src/app/feature-modules/layout/frequently-asked-questions/frequently-asked-questions.component";
+import { AboutUsComponent } from "src/app/feature-modules/layout/about-us/about-us.component";
 
 const routes: Routes = [
     { path: "home", component: HomeComponent },
@@ -315,6 +316,7 @@ const routes: Routes = [
     { path: "terms-of-service", component: TermsOfServiceComponent },
     { path: "privacy-policy", component: PrivacyPolicyComponent },
     { path: "frequently-asked-questions", component: FrequentlyAskedQuestionsComponent },
+    { path: "about-us", component: AboutUsComponent },
     { path: "**", pathMatch: "full", component: PageNotFoundComponent },
 ];
 
