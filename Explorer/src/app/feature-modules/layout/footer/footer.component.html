@@ -70,16 +70,17 @@
                 <div class="menu">
                     <div class="title">About Explorer</div>
                     <div class="item" [routerLink]="['']">Home</div>
-                    <div class="item">About us</div>
+                    <div class="item" [routerLink]="['about-us']">About us</div>
                 </div>
                 <div class="menu">
                     <div class="title">Company</div>
-                    <div class="item">About us</div>
-                    <div class="item">Carrers</div>
+                    <div class="item" [routerLink]="['company']">About us</div>
+                    <div class="item" [routerLink]="['company']">Our team</div>
+                    <div class="item" [routerLink]="['company']">Carrers</div>
                 </div>
                 <div class="menu">
                     <div class="title">Support</div>
-                    <div class="item">Frequently asked questions</div>
+                    <div class="item" [routerLink]="['frequently-asked-questions']">Frequently asked questions</div>
                     <div class="item" (click)="openTranslate()">Translate</div>
                     <div class="item" [routerLink]="['terms-of-service']">Terms of service</div>
                     <div class="item" [routerLink]="['privacy-policy']">Privacy policy</div>

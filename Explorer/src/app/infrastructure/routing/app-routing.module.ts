@@ -63,6 +63,9 @@ import { WishlistComponent } from "src/app/feature-modules/marketplace/wishlist/
 import { EncounterListComponent } from "src/app/feature-modules/encounter/encounter-list/encounter-list.component";
 import { TermsOfServiceComponent } from "src/app/feature-modules/layout/terms-of-service/terms-of-service.component";
 import { PrivacyPolicyComponent } from "src/app/feature-modules/layout/privacy-policy/privacy-policy.component";
+import { FrequentlyAskedQuestionsComponent } from "src/app/feature-modules/layout/frequently-asked-questions/frequently-asked-questions.component";
+import { AboutUsComponent } from "src/app/feature-modules/layout/about-us/about-us.component";
+import { CompanyComponent } from "src/app/feature-modules/layout/company/company.component";
 
 const routes: Routes = [
     { path: "home", component: HomeComponent },
@@ -313,6 +316,9 @@ const routes: Routes = [
     { path: "reset-password-edit", component: ResetPasswordEditComponent },
     { path: "terms-of-service", component: TermsOfServiceComponent },
     { path: "privacy-policy", component: PrivacyPolicyComponent },
+    { path: "frequently-asked-questions", component: FrequentlyAskedQuestionsComponent },
+    { path: "about-us", component: AboutUsComponent },
+    { path: "company", component: CompanyComponent },
     { path: "**", pathMatch: "full", component: PageNotFoundComponent },
 ];
 

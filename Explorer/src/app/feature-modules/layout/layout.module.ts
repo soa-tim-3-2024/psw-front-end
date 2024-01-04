@@ -25,6 +25,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BlogModule } from "../blog/blog.module";
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { FrequentlyAskedQuestionsComponent } from './frequently-asked-questions/frequently-asked-questions.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { CompanyComponent } from './company/company.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +48,10 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
         PublicKeypointNotificationCardComponent,
         PageNotFoundComponent,
         TermsOfServiceComponent,
-        PrivacyPolicyComponent
+        PrivacyPolicyComponent,
+        FrequentlyAskedQuestionsComponent,
+        AboutUsComponent,
+        CompanyComponent
     ],
     imports: [
         CommonModule,

@@ -12,7 +12,6 @@ import { ThemeService } from "../../../infrastructure/theme/theme.service";
 import { NavigationStart, NavigationEnd, Router } from "@angular/router";
 import { LoginComponent } from "src/app/infrastructure/auth/login/login.component";
 import { RegistrationComponent } from "src/app/infrastructure/auth/registration/registration.component";
-import { faFolderClosed } from "@fortawesome/free-regular-svg-icons";
 import {
     faChevronDown,
     faPhone,
@@ -48,7 +47,10 @@ import {
     faBoxOpen,
     faBarChart,
     faCheckSquare,
-    faScroll
+    faScroll,
+    faFolderClosed,
+    faCircleInfo,
+    faComputer
 } from "@fortawesome/free-solid-svg-icons";
 import { StakeholderService } from "../../stakeholder/stakeholder.service";
 import { interval, Subscription } from "rxjs";
@@ -222,4 +224,6 @@ export class NavbarComponent implements OnInit {
     faBarChart = faBarChart;
     faCheckSquare = faCheckSquare;
     faScroll = faScroll;
+    faCircleInfo = faCircleInfo;
+    faComputer = faComputer;
 }

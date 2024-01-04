@@ -286,9 +286,9 @@ export class TourSearchComponent implements OnInit {
     }
 
     resetLocationFilter() {
-        this.longitude = -200;
-        this.latitude = -200;
-        this.distance = 0;
+        this.searchFilter.longitude = -200;
+        this.searchFilter.latitude = -200;
+        this.searchFilter.distance = 0;
     }
 
     setPages(): void {

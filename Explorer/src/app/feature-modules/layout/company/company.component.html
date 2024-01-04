@@ -1,0 +1,53 @@
+<div class="about-us">
+    <div class="banner">
+        <img class="banner-image" src="assets/images/company.jpg"/>
+        <div class="banner-text-position">
+            <div class="banner-text">Company</div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="title">Who we are</div>
+        <div class="introduction">
+            <div class="introduction-left">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+            <div class="introduction-right">
+                <img class="company-logo"src="assets/images/KurbanovSolutions.png"/>
+            </div>
+        </div>
+        <div class="section" #team>
+            <div class="title">Developer team</div>
+            <div class="paragraph">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+            <div class="card-container">
+                <div class="card" *ngFor="let developer of developers">
+                    <img class="card-image" [src]="developer.image"/>
+                    <div class="card-name">{{developer.name}}</div>
+                    <div class="card-job">
+                        <fa-icon [icon]="faComputer" class="computer" />
+                        {{developer.job}}
+                    </div>
+                    <div class="socials">
+                        <div class="linked-in"  (click)="openSocials(developer.linkedIn)">
+                            <div class="linked-in-background">                                    
+                                <div class="linked-in-text">Linked</div>
+                                <fa-icon [icon]="faLinkedin" class="linked-in-logo"/>
+                            </div>
+                        </div>
+                        <div class="github"  (click)="openSocials(developer.gitHub)">
+                            <fa-icon [icon]="faGithub" class="github-logo"/>
+                            <div class="github-text">GitHub</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section" #carrers>
+            <div class="title">Carrers</div>
+            <div class="paragraph">
+                If you are interested to work with us, please <span class="link" (click)="showContact()">contact us</span>.
+            </div>
+        </div>
+    </div>
+</div>
