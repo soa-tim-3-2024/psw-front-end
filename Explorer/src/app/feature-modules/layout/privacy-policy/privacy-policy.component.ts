@@ -12,5 +12,5 @@ export class PrivacyPolicyComponent {
       top: documentHeight,
       behavior: 'smooth'
     });
-}
+  }
 }

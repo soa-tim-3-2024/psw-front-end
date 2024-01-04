@@ -27,6 +27,7 @@ import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.com
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { FrequentlyAskedQuestionsComponent } from './frequently-asked-questions/frequently-asked-questions.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { CompanyComponent } from './company/company.component';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
         TermsOfServiceComponent,
         PrivacyPolicyComponent,
         FrequentlyAskedQuestionsComponent,
-        AboutUsComponent
+        AboutUsComponent,
+        CompanyComponent
     ],
     imports: [
         CommonModule,

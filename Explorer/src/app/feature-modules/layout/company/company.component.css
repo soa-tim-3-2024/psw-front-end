@@ -36,8 +36,15 @@
     font-size: 5rem;
 }
 
+.company-logo {
+    margin-top: 1rem;
+    width: 100%;
+    border: rgba(var(--border-primary), 1) 1px solid;
+    transition: border 0.15s;
+}
+
 .content {
-    width: 45rem;
+    width: 62rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -72,25 +79,7 @@
     width: 35%;
 }
 
-.navbar-logo {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-}
 
-.navbar-logo-icon {
-    height: 5rem;
-}
-
-.navbar-logo-text {
-    font-family: Cinzel, Arial, Helvetica, sans-serif;
-    margin-left: 2px;
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: rgba(var(--clr-primary-500), 1);
-    user-select: none;
-}
 
 .section {
     margin-top: 5rem;
@@ -139,4 +128,93 @@
     width: 100%;
     height: 30rem;
     object-fit: cover;
+}
+
+.card-container {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.card {
+    width: 14.75rem;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    background-color: rgba(var(--clr-background-secondary), 1);
+    border-radius: 0.3125rem;
+    overflow: hidden;
+    padding-bottom: 1rem;
+    border: rgba(var(--border-primary), 1) 1px solid;
+    transition: background-color 0.15s,
+                border 0.15s,
+                filter 0.15s;
+}
+
+.card:hover {
+    filter: brightness(1.05);
+}
+
+.card:hover .card-name {
+    color: rgba(var(--clr-primary-500), 1);
+}
+
+.card:hover .card-job {
+    color: rgba(var(--clr-primary-500), 1);
+}
+
+.card:hover .computer {
+    color: rgba(var(--clr-primary-500), 1);
+}
+
+.card-image {
+    width: 100%;
+    height: 14.75rem;
+    object-fit: cover;
+}
+
+.card-name {
+    margin-top: 1rem;
+    width: 100%;
+    padding-inline: 0.5rem;
+    color: rgba(var(--clr-text), 1);
+    transition: color 0.15s;
+    font-family: var(--fnt-body);
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.card-job {
+    padding-right: 0.5rem;
+    color: rgba(var(--clr-text), 1);
+    transition: color 0.15s;
+    font-family: var(--fnt-body);
+    font-size: 1rem;
+}
+
+.computer {
+    width: 100%;
+    padding-inline: 0.5rem;
+    color: rgba(var(--clr-text), 1);
+    transition: color 0.15s;
+    font-family: var(--fnt-body);
+    font-size: 1rem;
+}
+
+.link {
+    color: rgba(var(--clr-primary-500), 1);
+    transition: color 0.15s;
+    font-family: var(--fnt-body);
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.link:hover {
+    color: rgba(var(--clr-primary-500), 0.9);
+    text-decoration: underline;
 }
