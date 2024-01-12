@@ -50,7 +50,7 @@ import {
     faScroll,
     faFolderClosed,
     faCircleInfo,
-    faComputer
+    faComputer,
 } from "@fortawesome/free-solid-svg-icons";
 import { StakeholderService } from "../../stakeholder/stakeholder.service";
 import { interval, Subscription } from "rxjs";
@@ -147,6 +147,7 @@ export class NavbarComponent implements OnInit {
     }
 
     onLogout(): void {
+        document.getElementById("sidebar")!.classList.remove("active");
         this.unsubscribe();
         this.authService.logout();
         this.router.navigate([""]);
@@ -178,7 +179,7 @@ export class NavbarComponent implements OnInit {
     }
 
     openTranslate(): void {
-        window.open('http://localhost:4200/translate', '_blank');
+        window.open("http://localhost:4200/translate", "_blank");
     }
 
     showContact(): void {
