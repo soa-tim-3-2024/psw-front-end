@@ -8,6 +8,13 @@
             <xp-blog-preview
                 *ngFor="let blog of popularBlogs"
                 [blog]="blog"
+                [vote]="getVote(blog)"
+                [user]="user"
+                [routerLink]="['/blog/' + blog.id]"
+                (upvote)="upVoteBlog($event)"
+                (downvote)="downVoteBlog($event)"
+                [@fadeIn]
+                [style.display]="blog.status != 0 ? 'block' : 'none'"
             ></xp-blog-preview>
         </div>
     </div>
