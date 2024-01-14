@@ -45,11 +45,11 @@ export class ReviewComponent implements OnInit {
     ngOnInit(): void {
         this.authService.user$.subscribe(user => {
             this.user = user;
-            if (this.user.id != 0)
-                this.route.params.subscribe(params => {
-                    this.tourId = params["tourId"];
-                    this.getReviews();
-                });
+            //if (this.user.id != 0)
+            this.route.params.subscribe(params => {
+                this.tourId = params["tourId"];
+                this.getReviews();
+            });
         });
     }
 
