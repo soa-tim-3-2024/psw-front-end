@@ -17,6 +17,7 @@ import { ShoppingCart } from "../model/shopping-cart";
 import { TourLimitedView } from "../model/tour-limited-view.model";
 import { TourToken } from "../model/tour-token.model";
 import { PagedResults } from "src/app/shared/model/paged-results.model";
+import { NotifierService } from "angular-notifier";
 
 @Component({
     selector: "xp-tour-page",
@@ -43,6 +44,7 @@ export class TourPageComponent {
         private route: ActivatedRoute,
         private service: TourAuthoringService,
         private marketplaceService: MarketplaceService,
+        private notifier: NotifierService,
     ) {}
 
     ngOnInit(): void {
@@ -119,11 +121,17 @@ export class TourPageComponent {
         };
         console.log(orderItem);
         if (this.addedTours.find(tr => tr.id == this.tour?.id)) {
-            alert("You have already added this item to the cart.");
+            this.notifier.notify(
+                "error",
+                "You have already added this item to the cart.",
+            );
             return;
         }
         if (this.tokens.find(tok => tok.tourId == this.tour?.id)) {
-            alert("You have already purcheased this tour.");
+            this.notifier.notify(
+                "error",
+                "You have already purcheased this tour.",
+            );
             return;
         }
         this.marketplaceService.addOrderItem(orderItem).subscribe({
@@ -134,7 +142,6 @@ export class TourPageComponent {
                         this.marketplaceService
                             .getShoppingCart(this.user.id)
                             .subscribe();
-                        alert("Item successfully added to cart!");
                     },
                 });
             },
@@ -190,7 +197,7 @@ export class TourPageComponent {
     }
 
     getRoundedRating(): number {
-        if(!this.tour || !this.tour.averageRating) return 0;
+        if (!this.tour || !this.tour.averageRating) return 0;
         return parseFloat(this.tour.averageRating.toFixed(2));
     }
 }
