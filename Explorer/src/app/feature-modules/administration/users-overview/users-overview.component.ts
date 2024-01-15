@@ -54,6 +54,7 @@ export class UsersOverviewComponent implements OnInit {
             next: (result: User) => {
                 if (!result.isActive) {
                     card.classList.add("card-red");
+                    person.user.isActive = false;
                 }
             },
         });

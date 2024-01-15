@@ -75,6 +75,7 @@ fa-icon:hover {
 .row {
     display: flex;
     flex-direction: column;
+    width: 17rem;
     margin-left: 0.5rem;
     margin-block: auto;
 }
