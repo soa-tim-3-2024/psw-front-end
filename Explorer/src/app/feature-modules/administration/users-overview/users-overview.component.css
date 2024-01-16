@@ -1,11 +1,6 @@
 .users {
     display: flex;
-    margin-top: 2rem;
-    margin-inline: 4rem;
-    font-size: 2rem;
-    color: rgb(var(--clr-text));
-    overflow: hidden;
-    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .search-bar {
@@ -35,6 +30,16 @@
     color: rgb(var(--clr-text));
     outline: none;
     width: 100%;
+}
+
+.cards {
+    display: flex;
+    margin-top: 2rem;
+    margin-inline: 4rem;
+    font-size: 2rem;
+    color: rgb(var(--clr-text));
+    overflow: hidden;
+    flex-wrap: wrap;
 }
 
 .card {
