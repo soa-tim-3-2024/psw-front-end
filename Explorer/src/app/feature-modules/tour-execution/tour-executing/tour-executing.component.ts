@@ -234,6 +234,8 @@ export class TourExecutingComponent implements OnInit {
         if (this.session.status != TourExecutionSessionStatus.Started) {
             this.router.navigate(["/purchasedtours"]);
         }
+        //this.notifier.notify("error", "You must fill all fields");
+        
         let r = confirm("Are you sure you want to leave this tour?");
         if (r) {
             this.execution.tourId = this.session.tourId;
