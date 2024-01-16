@@ -105,9 +105,9 @@ export class NavbarComponent implements OnInit {
             }
         });
 
-        this.stakeholderService.notifications$.subscribe(_ => {
-            this.getUnseenNotifications();
-        });
+        // this.stakeholderService.notifications$.subscribe(_ => {
+        //     this.getUnseenNotifications();
+        // });
     }
 
     getUnseenNotifications() {
