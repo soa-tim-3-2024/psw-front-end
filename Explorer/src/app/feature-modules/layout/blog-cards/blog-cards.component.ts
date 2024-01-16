@@ -38,8 +38,9 @@ export class BlogCardsComponent implements OnInit {
         this.blogContainer = document.querySelector(".blog-container");
         this.service.getPopularBlogs().subscribe({
             next: (result: PagedResults<Blog>) => {
-                this.popularBlogs = result.results.slice(0, 3);
-                //console.log(this.adventureTours)
+                this.popularBlogs = result.results
+                    .filter(blog => blog.status === 4)
+                    .slice(0, 3);
             },
         });
         this.authService.user$.subscribe(user => {
