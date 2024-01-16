@@ -4,6 +4,7 @@ import { HomeComponent } from "./home/home.component";
 import { NavbarComponent } from "./navbar/navbar.component";
 import { MaterialModule } from "src/app/infrastructure/material/material.module";
 import { RouterModule } from "@angular/router";
+import { FormsModule } from '@angular/forms';
 import { TourCardsComponent } from "./tour-cards/tour-cards.component";
 import { BlogCardsComponent } from "./blog-cards/blog-cards.component";
 import { FooterComponent } from "./footer/footer.component";
@@ -64,6 +65,7 @@ import { ContactComponent } from './contact/contact.component';
         SharedModule,
         BrowserAnimationsModule,
         BlogModule,
+        FormsModule,
     ],
     exports: [
         NavbarComponent,
