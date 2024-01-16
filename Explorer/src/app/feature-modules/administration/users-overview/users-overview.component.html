@@ -1,4 +1,12 @@
 <div class="users">
+    <div class="search-bar">
+        <fa-icon [icon]="faSearch" class="search-icon" />
+        <input
+            type="text"
+            class="search-input"
+            placeholder="Search clubs..."
+        />
+    </div>
     <div
         class="card"
         [ngClass]="{ 'card-red': !person.user.isActive }"

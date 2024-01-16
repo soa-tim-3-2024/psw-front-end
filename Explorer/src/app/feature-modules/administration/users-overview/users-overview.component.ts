@@ -5,6 +5,7 @@ import {
     faUserXmark,
     faUserCheck,
     faMoneyBill,
+    faSearch
 } from "@fortawesome/free-solid-svg-icons";
 import { User } from "src/app/infrastructure/auth/model/user.model";
 import { Person } from "../../stakeholder/model/person.model";
@@ -71,4 +72,5 @@ export class UsersOverviewComponent implements OnInit {
     faUserXmark = faUserXmark;
     faUserCheck = faUserCheck;
     faMoneyBill = faMoneyBill;
+    faSearch = faSearch;
 }
