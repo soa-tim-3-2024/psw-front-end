@@ -8,8 +8,9 @@
                 type="text"
                 class="search-input"
                 placeholder="Places to go, things to do, blogs,..."
+                [(ngModel)]="tourSearchInput"
             />
-            <div class="btn search-button">Search</div>
+            <div class="btn search-button" (click)="searchTours()">Search</div>
         </div>
         <p>
             Welcome to Explorer – your ultimate travel companion. Discover curated tours, interactive maps, and local insights, connecting you to the heart of every destination. Explore with confidence, make unforgettable memories, and turn every trip into an extraordinary adventure.
