@@ -20,8 +20,8 @@ import { BundleCreation } from "./model/bundle-creation.model";
 export class TourAuthoringService {
     constructor(private http: HttpClient) {}
 
-    getTours(): Observable<PagedResults<Tour>> {
-        return this.http.get<PagedResults<Tour>>(
+    getTours(): Observable<Tour[]> {
+        return this.http.get<Tour[]>(
             "https://localhost:44333/api/tour/authors",
         );
     }

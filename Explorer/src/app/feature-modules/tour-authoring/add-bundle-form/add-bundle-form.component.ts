@@ -41,8 +41,8 @@ export class AddBundleFormComponent implements OnInit {
 
   getToursForAuthor(): void {
     this.service.getTours().subscribe({
-      next: (result: PagedResults<Tour>) => {
-        this.tours = result.results;
+      next: (result: Tour[]) => {
+        this.tours = result;
         this.tours.forEach(t => {
           
         });
