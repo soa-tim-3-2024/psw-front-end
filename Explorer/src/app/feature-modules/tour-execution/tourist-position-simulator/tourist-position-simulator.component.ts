@@ -14,11 +14,13 @@ export class TouristPositionSimulatorComponent implements OnInit {
   touristPosition: TouristPosition;
   @Input() isTourExecutionMap = false;
   @Input() tourId: any;
+  currentUser: User
   constructor(private authService: AuthService, private service: TourExecutionService) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe({
       next: (userResult: User) => {
+        this.currentUser = userResult
         this.service.getTouristPositionByTouristId(userResult.id).subscribe({
           next: (result: TouristPosition) => {
             this.touristPosition = { touristId: userResult.id, longitude: result.longitude, latitude: result.latitude };
@@ -38,16 +40,17 @@ export class TouristPositionSimulatorComponent implements OnInit {
         }
       });
     } else {
-      this.authService.user$.subscribe({
-        next: (result: User) => {
-          this.touristPosition = { touristId: result.id, longitude: longLat[0], latitude: longLat[1] }
+      // izbrisana supskripcija na usera jer mislim da ne treba, ako ne bude radilo u izvrsavanju ture pogledati ovde
+      //this.authService.user$.subscribe({
+        //next: (result: User) => {
+          this.touristPosition = { touristId: this.currentUser.id, longitude: longLat[0], latitude: longLat[1] }
 
           this.service.addTouristPosition(this.touristPosition).subscribe({
             next: (result: TouristPosition) => {
             }
           });
-        }
-      });
+        //}
+      //});
     }
   }
 }
