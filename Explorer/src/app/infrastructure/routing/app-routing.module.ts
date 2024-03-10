@@ -125,6 +125,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
     },
     {
+        path: "tourist-position-simulator",
+        component: TouristPositionSimulatorComponent,
+        canActivate: [AuthGuard],
+    },
+    {
         path: "tour-executing/:tourId",
         component: TourExecutingComponent,
         canActivate: [AuthGuard],
@@ -316,7 +321,10 @@ const routes: Routes = [
     { path: "reset-password-edit", component: ResetPasswordEditComponent },
     { path: "terms-of-service", component: TermsOfServiceComponent },
     { path: "privacy-policy", component: PrivacyPolicyComponent },
-    { path: "frequently-asked-questions", component: FrequentlyAskedQuestionsComponent },
+    {
+        path: "frequently-asked-questions",
+        component: FrequentlyAskedQuestionsComponent,
+    },
     { path: "about-us", component: AboutUsComponent },
     { path: "company", component: CompanyComponent },
     { path: "**", pathMatch: "full", component: PageNotFoundComponent },

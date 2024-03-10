@@ -105,6 +105,13 @@ export class TourCardViewComponent implements OnChanges {
     }
 
     ngOnInit(): void {
+        console.log(this.tour);
+        this.authService.user$.subscribe(user => {
+            this.user = user;
+            if (this.user.role === "tourist" && this.user.id !== 0) {
+                this.getShoppingCart();
+            }
+        });
         this.images = this.tour.keyPoints!.map(kp =>
             kp.imagePath.startsWith("http")
                 ? kp.imagePath
@@ -117,13 +124,6 @@ export class TourCardViewComponent implements OnChanges {
         } else {
             this.getDiscount();
         }
-
-        this.authService.user$.subscribe(user => {
-            this.user = user;
-            if (this.user.role === "tourist" && this.user.id !== 0) {
-                this.getShoppingCart();
-            }
-        });
 
         if (this.user.role === "tourist" && this.user.id !== 0) {
             this.marketplaceService.cart$.subscribe(cart => {
@@ -347,7 +347,7 @@ export class TourCardViewComponent implements OnChanges {
     }
 
     getRoundedRating(): number {
-        if(!this.tour.averageRating) return 0;
+        if (!this.tour.averageRating) return 0;
         return parseFloat(this.tour.averageRating.toFixed(2));
     }
 }
