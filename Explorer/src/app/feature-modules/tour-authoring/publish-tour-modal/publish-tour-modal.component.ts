@@ -6,12 +6,14 @@ import {
     faPersonWalking,
     faBicycle,
     faCarSide,
+    faArrowTrendUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { TourDuration, TransportType } from "../model/tourDuration.model";
 import { TourAuthoringService } from "../tour-authoring.service";
 import { NotifierService } from "angular-notifier";
 import { Router } from "@angular/router";
 import { xpError } from "src/app/shared/model/error.model";
+import { TourExecutingComponent } from "../../tour-execution/tour-executing/tour-executing.component";
 
 export interface PublishTourModalData {
     tour: Tour;
@@ -56,12 +58,7 @@ export class PublishTourModalComponent {
             };
 
             this.handleCheckedDurations(this.data.tour, tourDuration);
-        } else {
-            this.handleUncheckedDurations(
-                this.data.tour,
-                TransportType.Walking,
-            );
-        }
+        } 
 
         if (this.publishForm.value.bicycleRideChecked) {
             const tourDuration: TourDuration = {
@@ -70,12 +67,7 @@ export class PublishTourModalComponent {
             };
 
             this.handleCheckedDurations(this.data.tour, tourDuration);
-        } else {
-            this.handleUncheckedDurations(
-                this.data.tour,
-                TransportType.Bicycle,
-            );
-        }
+        } 
 
         if (this.publishForm.value.carRideChecked) {
             const tourDuration: TourDuration = {
@@ -84,9 +76,7 @@ export class PublishTourModalComponent {
             };
 
             this.handleCheckedDurations(this.data.tour, tourDuration);
-        } else {
-            this.handleUncheckedDurations(this.data.tour, TransportType.Car);
-        }
+        } 
 
         this.service.updateTour(tour).subscribe({
             next: () => {
@@ -125,30 +115,8 @@ export class PublishTourModalComponent {
     }
 
     handleCheckedDurations(tour: Tour, tourDuration: TourDuration): void {
-        let shouldPush = true;
-        if (tour.durations) {
-            let counter = 0;
-            for (let t of tour.durations) {
-                if (
-                    t.transportType == tourDuration.transportType &&
-                    t.duration == tourDuration.duration
-                ) {
-                    shouldPush = false;
-                    break;
-                } else if (
-                    t.transportType == tourDuration.transportType &&
-                    t.duration != tourDuration.duration
-                ) {
-                    tour.durations.splice(counter, 1);
-                    break;
-                }
-                counter++;
-            }
-        }
-
-        if (shouldPush) {
-            tour.durations?.push(tourDuration);
-        }
+        tour.durations = []
+        tour.durations.push(tourDuration)
     }
 
     handleUncheckedDurations(tour: Tour, type: TransportType): void {
@@ -166,19 +134,37 @@ export class PublishTourModalComponent {
 
     toggleWalking() {
         this.publishForm.controls["onFootChecked"].setValue(
-            !this.publishForm.value["onFootChecked"],
+            true
+        );
+        this.publishForm.controls["bicycleRideChecked"].setValue(
+            false
+        );
+        this.publishForm.controls["carRideChecked"].setValue(
+            false
         );
     }
 
     toggleBicycle() {
         this.publishForm.controls["bicycleRideChecked"].setValue(
-            !this.publishForm.value.bicycleRideChecked,
+            true
+        );
+        this.publishForm.controls["onFootChecked"].setValue(
+            false
+        );
+        this.publishForm.controls["carRideChecked"].setValue(
+            false
         );
     }
 
     toggleCar() {
         this.publishForm.controls["carRideChecked"].setValue(
-            !this.publishForm.value.carRideChecked,
+            true
+        );
+        this.publishForm.controls["onFootChecked"].setValue(
+            false
+        );
+        this.publishForm.controls["bicycleRideChecked"].setValue(
+            false
         );
     }
 }

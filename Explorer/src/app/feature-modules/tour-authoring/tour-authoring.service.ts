@@ -182,8 +182,8 @@ export class TourAuthoringService {
         );
     }
 
-    publishTour(tour: Tour): Observable<Tour> {
-        return this.http.put<Tour>(
+    publishTour(tour: Tour): Observable<any> {
+        return this.http.put<any>(
             environment.apiHost + "tour/publish/" + tour.id,
             tour,
         );

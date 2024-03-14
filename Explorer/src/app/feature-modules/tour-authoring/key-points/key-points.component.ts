@@ -76,6 +76,7 @@ export class KeyPointsComponent implements OnInit {
             this.service.getTour(Number(param)).subscribe({
                 next: result => {
                     this.tour = result;
+                    this.keyPoints = this.tour.keyPoints!
                     this.getKeyPoints();
                     this.enableButtons();
                 },
@@ -107,12 +108,12 @@ export class KeyPointsComponent implements OnInit {
     getKeyPoints(): void {
         this.service.getKeyPoints(this.tour?.id!).subscribe({
             next: (result: KeyPoint[]) => {
-                this.keyPoints = result.sort((x, y) => {
+             /*   this.keyPoints = result.sort((x, y) => {
                     return x.order < y.order ? -1 : 1;
                 });
                 this.tour!.keyPoints = this.tour!.keyPoints?.sort((x, y) => {
                     return x.order < y.order ? -1 : 1;
-                });
+                });*/
             },
             error: () => {},
         });
