@@ -13,6 +13,20 @@ import { xpError } from "src/app/shared/model/error.model";
 import { environment } from "src/env/environment";
 import { EncounterCompletedPopupComponent } from "../encounter-completed-popup/encounter-completed-popup.component";
 
+interface EncounterResponseDto {
+    Id: number;
+    Title: string;
+    Description: string;
+    Picture: string;
+    Longitude: number;
+    Latitude: number;
+    Radius: number;
+    XpReward: number;
+    Status: number;
+    Type: number;
+    // Add other properties as needed
+}
+
 @Component({
     selector: "xp-active-encounter-view",
     templateUrl: "./active-encounter-view.component.html",
@@ -21,6 +35,7 @@ import { EncounterCompletedPopupComponent } from "../encounter-completed-popup/e
 export class ActiveEncounterViewComponent implements AfterViewInit {
     points: any;
     encounters: Encounter[];
+    responses: EncounterResponseDto[]
     filteredEncounters: Encounter[];
     encounter?: Encounter;
     encounterInstance?: EncounterInstance;
@@ -223,7 +238,8 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
         userPosition: UserPositionWithRange,
     ) {
         this.service.getEncountersInRangeOf(userPosition).subscribe(result => {
-            this.filteredEncounters = result.results;
+            this.filteredEncounters = result;
+            console.log(result)
             this.filteredEncounters.forEach((enc, i) => {
                 this.filteredEncounters[i].picture = enc.picture.startsWith(
                     "http",

@@ -64,8 +64,8 @@ export class EncounterService {
 
     getEncountersInRangeOf(
         userPositionWithRange: UserPositionWithRange,
-    ): Observable<PagedResults<Encounter>> {
-        return this.http.post<PagedResults<Encounter>>(
+    ): Observable<Encounter[]> {
+        return this.http.post<Encounter[]>(
             environment.apiHost + "tourist/encounter/in-range-of",
             userPositionWithRange,
         );
