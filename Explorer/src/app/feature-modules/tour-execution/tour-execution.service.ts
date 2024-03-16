@@ -37,7 +37,7 @@ export class TourExecutionService {
 
     getTour(tourId: number): Observable<Tour> {
         return this.http.get<Tour>(
-            environment.apiHost + "tourexecution/tourexecution/" + tourId,
+            'https://localhost:44333/api/market-place/tours/2'
         );
     }
     getLiveTour(): Observable<TourExecutionSession> {

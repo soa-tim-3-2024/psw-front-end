@@ -82,7 +82,7 @@ export class TourCardViewComponent implements OnChanges {
     @Input() hideAddToCart: boolean = false;
     discount: number | null = null;
     discountedPrice: number | null = null;
-    addedTours: TourLimitedView[] = [];
+    addedTours: Tour[] = [];
     tokens: TourToken[] = [];
     shoppingCart: ShoppingCart = {};
     imageHost: string = environment.imageHost;
@@ -128,8 +128,8 @@ export class TourCardViewComponent implements OnChanges {
         if (this.user.role === "tourist" && this.user.id !== 0) {
             this.marketplaceService.cart$.subscribe(cart => {
                 this.marketplaceService.getToursInCart(this.user.id).subscribe({
-                    next: (result: PagedResults<TourLimitedView>) => {
-                        this.addedTours = result.results;
+                    next: (result: Tour[]) => {
+                        this.addedTours = result;
                         this.getShoppingCart(); // update the price
                         this.getDiscount();
                     },
@@ -181,7 +181,7 @@ export class TourCardViewComponent implements OnChanges {
                         .getToursInCart(this.user.id)
                         .subscribe({
                             next: result => {
-                                this.addedTours = result.results;
+                                this.addedTours = result;
                             },
                         });
                 }
@@ -226,7 +226,7 @@ export class TourCardViewComponent implements OnChanges {
             next: (result: OrderItem) => {
                 this.marketplaceService.getToursInCart(this.user.id).subscribe({
                     next: result => {
-                        this.addedTours = result.results;
+                        this.addedTours = result;
                         this.marketplaceService
                             .getShoppingCart(this.user.id)
                             .subscribe();

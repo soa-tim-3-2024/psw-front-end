@@ -294,9 +294,9 @@ export class TourComponent implements OnInit {
 
     getPublishedTours(): void {
         this.marketplaceService.getPublishedTours().subscribe({
-            next: (result: PagedResults<Tour>) => {
-                this.tours = result.results;
-                this.totalCount = result.totalCount;
+            next: (result: Tour[]) => {
+                this.tours = result;
+                this.totalCount = result.length;
             },
             error: (err: any) => {
                 console.log(err);

@@ -19,6 +19,8 @@ export interface Tour {
     recommended?: boolean;
     active?: boolean;
     category?: TourCategory;
+    discount?: number
+    discountedPrice?: number
 }
 
 export enum TourStatus {

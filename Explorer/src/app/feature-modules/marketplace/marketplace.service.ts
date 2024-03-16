@@ -306,8 +306,8 @@ export class MarketplaceService {
             environment.apiHost + "tourist/facility/public",
         );
     }
-    getPublishedTours(): Observable<PagedResults<Tour>> {
-        return this.http.get<PagedResults<Tour>>(
+    getPublishedTours(): Observable<Tour[]> {
+        return this.http.get<Tour[]>(
             environment.apiHost + "market-place/tours/published",
         );
     }
@@ -358,8 +358,8 @@ export class MarketplaceService {
         );
     }
 
-    getToursInCart(id: number): Observable<PagedResults<Tour>> {
-        return this.http.get<PagedResults<TourLimitedView>>(
+    getToursInCart(id: number): Observable<Tour[]> {
+        return this.http.get<Tour[]>(
             environment.apiHost + "market-place/tours/inCart/" + id,
         );
     }

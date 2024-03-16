@@ -140,7 +140,7 @@ export class TourExecutingComponent implements OnInit {
     }
 
     checkKeyPointCompletion() {
-        if (this.session.status !== TourExecutionSessionStatus.Started) return;
+        if (this.session.status !== 0) return;
 
         this.activateKeyPointEncounter(-1, this.touristPosition);
         this.service
