@@ -26,7 +26,7 @@
         <div
             class="btn"
             *ngIf="
-                encounterInstance?.status === 0 &&
+                !encounterInstance &&
                 encounter &&
                 encounter.type !== 1
             "

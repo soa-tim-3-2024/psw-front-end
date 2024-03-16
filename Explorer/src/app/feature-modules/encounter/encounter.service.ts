@@ -56,16 +56,16 @@ export class EncounterService {
         );
     }
 
-    getEncounterInstance(encounterId: number): Observable<EncounterInstance> {
-        return this.http.get<EncounterInstance>(
+    getEncounterInstance(encounterId: number): Observable<Boolean> {
+        return this.http.get<Boolean>(
             environment.apiHost + `tourist/encounter/${encounterId}/instance`,
         );
     }
 
     getEncountersInRangeOf(
         userPositionWithRange: UserPositionWithRange,
-    ): Observable<PagedResults<Encounter>> {
-        return this.http.post<PagedResults<Encounter>>(
+    ): Observable<Encounter[]> {
+        return this.http.post<Encounter[]>(
             environment.apiHost + "tourist/encounter/in-range-of",
             userPositionWithRange,
         );

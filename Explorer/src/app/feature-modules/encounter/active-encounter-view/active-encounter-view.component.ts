@@ -21,10 +21,10 @@ import { EncounterCompletedPopupComponent } from "../encounter-completed-popup/e
 export class ActiveEncounterViewComponent implements AfterViewInit {
     points: any;
     encounters: Encounter[];
-    filteredEncounters: Encounter[];
+    filteredEncounters: Encounter[] = [];
     encounter?: Encounter;
-    encounterInstance?: EncounterInstance;
-    loadEncounterInstance?: EncounterInstance;
+    encounterInstance?: Boolean;
+    loadEncounterInstance?: Boolean;
     dialogRef: MatDialogRef<PositionSimulatorComponent, any> | undefined;
     matDialogRef:
         | MatDialogRef<EncounterCompletedPopupComponent, any>
@@ -124,7 +124,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                             if (
                                 this.hiddenEncounterCheck &&
                                 currentEncounterId == this.encounter?.id &&
-                                this.encounterInstance?.status == 0
+                                !this.encounterInstance
                             ) {
                                 console.log("Test passed, completing...");
                                 this.completeEncounter();
@@ -216,14 +216,15 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                 ),
             );
         // console.log(distance * 1000);
-        return distance * 1000 <= encounter.radius;
+        return distance * 1000 <= 50;
     }
 
     loadEncountersInRangeOfFromCurrentLocation(
         userPosition: UserPositionWithRange,
     ) {
-        this.service.getEncountersInRangeOf(userPosition).subscribe(result => {
-            this.filteredEncounters = result.results;
+        this.service.getEncountersInRangeOf(userPosition).subscribe({
+            next: (result: Encounter[]) => {
+                this.filteredEncounters = result;
             this.filteredEncounters.forEach((enc, i) => {
                 this.filteredEncounters[i].picture = enc.picture.startsWith(
                     "http",
@@ -234,24 +235,24 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                 this.service.getEncounterInstance(enc.id).subscribe(result => {
                     this.loadEncounterInstance = result;
                 });
-                if (this.loadEncounterInstance?.status === 0) {
+                if (!this.loadEncounterInstance) {
                     this.mapComponent.setEncounterActiveMarker(
                         enc.latitude,
                         enc.longitude,
                     );
                 }
-                if (this.loadEncounterInstance?.status === 1) {
+                if (this.loadEncounterInstance) {
                     this.mapComponent.setEncounterCompletedMarker(
                         enc.latitude,
                         enc.longitude,
                     );
                 }
-                if (!this.loadEncounterInstance) {
-                    this.mapComponent.setEncounterMarker(
-                        enc.latitude,
-                        enc.longitude,
-                    );
-                }
+                // if (!this.loadEncounterInstance) {
+                //     this.mapComponent.setEncounterMarker(
+                //         enc.latitude,
+                //         enc.longitude,
+                //     );
+                // }
             });
             if (this.filteredEncounters) {
                 this.filteredEncounters.forEach(enc => {
@@ -259,8 +260,8 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                         this.encounter = enc;
                         this.getEncounterInstance(enc.id);
                         if (this.encounter.type === 1) {
-                            if (this.encounterInstance) {
-                                if (this.encounterInstance.status == 0) {
+                            if (this.encounterInstance != undefined) {
+                                if (!this.encounterInstance) {
                                     this.hiddenEncounterCheck = true;
                                     this.handleHiddenLocationCompletion();
                                 }
@@ -269,7 +270,10 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                     }
                 });
             }
+            },
+            error () {}
         });
+        
     }
 
     openSimulator() {
