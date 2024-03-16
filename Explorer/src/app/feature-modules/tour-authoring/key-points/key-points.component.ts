@@ -215,6 +215,7 @@ export class KeyPointsComponent implements OnInit {
             data: {
                 tour: this.tour,
                 isUpdateForm: false,
+                order: this.keyPoints.length
             },
         });
 

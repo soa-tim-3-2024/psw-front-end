@@ -37,7 +37,7 @@ export class TourExecutionService {
 
     getTour(tourId: number): Observable<Tour> {
         return this.http.get<Tour>(
-            'https://localhost:44333/api/market-place/tours/2'
+            'https://localhost:44333/api/market-place/tours/'+tourId
         );
     }
     getLiveTour(): Observable<TourExecutionSession> {
@@ -53,9 +53,10 @@ export class TourExecutionService {
     }
     abandonTour(
         execution: TourExecutionStart,
+        sessionId: number
     ): Observable<TourExecutionSession> {
         return this.http.put<TourExecutionSession>(
-            environment.apiHost + "tourexecution/tourexecution/abandoning",
+            environment.apiHost + "tourexecution/tourexecution/abandoning/"+sessionId,
             execution,
         );
     }

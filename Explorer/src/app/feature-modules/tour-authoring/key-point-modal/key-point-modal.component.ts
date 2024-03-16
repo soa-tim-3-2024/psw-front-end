@@ -34,6 +34,7 @@ export interface AddKeyPointModalData {
     keyPoint?: KeyPoint;
     isUpdateForm: Boolean;
     tour: Tour;
+    order: number
 }
 
 @Component({
@@ -129,7 +130,7 @@ export class KeyPointModalComponent implements OnInit {
                     latitude: this.keyPointForm.value.latitude || 0,
                     locationAddress: this.keyPointForm.value.address || "",
                     imagePath: imagePath,
-                    order: 0,
+                    order: this.data.order,
                     haveSecret:
                         this.keyPointForm.value.secretDescription?.length != 0,
                     secret:
