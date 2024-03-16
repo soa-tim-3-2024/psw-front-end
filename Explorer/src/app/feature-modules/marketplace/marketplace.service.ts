@@ -113,8 +113,8 @@ export class MarketplaceService {
         );
     }
 
-    getReviews(tourId: number): Observable<PagedResults<Review>> {
-        return this.http.get<PagedResults<Review>>(
+    getReviews(tourId: number): Observable<Review[]> {
+        return this.http.get<Review[]>(
             environment.apiHost + "review/" + tourId,
         );
     }
