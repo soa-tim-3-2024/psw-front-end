@@ -1,53 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-import { AdministrationService } from '../administration.service';
-import { Equipment } from '../model/equipment.model';
-import { PagedResults } from 'src/app/shared/model/paged-results.model';
-
+import { Component, OnInit } from "@angular/core";
+import { AdministrationService } from "../administration.service";
+import { Equipment } from "../model/equipment.model";
+import { PagedResults } from "src/app/shared/model/paged-results.model";
 
 @Component({
-  selector: 'xp-equipment',
-  templateUrl: './equipment.component.html',
-  styleUrls: ['./equipment.component.css']
+    selector: "xp-equipment",
+    templateUrl: "./equipment.component.html",
+    styleUrls: ["./equipment.component.css"],
 })
 export class EquipmentComponent implements OnInit {
+    equipment: Equipment[] = [];
+    selectedEquipment: Equipment;
+    shouldRenderEquipmentForm: boolean = false;
+    shouldEdit: boolean = false;
 
-  equipment: Equipment[] = [];
-  selectedEquipment: Equipment;
-  shouldRenderEquipmentForm: boolean = false;
-  shouldEdit: boolean = false;
-  
-  constructor(private service: AdministrationService) { }
+    constructor(private service: AdministrationService) {}
 
-  ngOnInit(): void {
-    this.getEquipment();
-  }
-  
-  deleteEquipment(id: number): void {
-    this.service.deleteEquipment(id).subscribe({
-      next: () => {
+    ngOnInit(): void {
         this.getEquipment();
-      },
-    })
-  }
+    }
 
-  getEquipment(): void {
-    this.service.getEquipment().subscribe({
-      next: (result: PagedResults<Equipment>) => {
-        this.equipment = result.results;
-      },
-      error: () => {
-      }
-    })
-  }
+    deleteEquipment(id: number): void {
+        this.service.deleteEquipment(id).subscribe({
+            next: () => {
+                this.getEquipment();
+            },
+        });
+    }
 
-  onEditClicked(equipment: Equipment): void {
-    this.selectedEquipment = equipment;
-    this.shouldRenderEquipmentForm = true;
-    this.shouldEdit = true;
-  }
+    getEquipment(): void {
+        this.service.getEquipment().subscribe({
+            next: (result: Equipment[]) => {
+                this.equipment = result;
+            },
+            error: () => {},
+        });
+    }
 
-  onAddClicked(): void {
-    this.shouldEdit = false;
-    this.shouldRenderEquipmentForm = true;
-  }
+    onEditClicked(equipment: Equipment): void {
+        this.selectedEquipment = equipment;
+        this.shouldRenderEquipmentForm = true;
+        this.shouldEdit = true;
+    }
+
+    onAddClicked(): void {
+        this.shouldEdit = false;
+        this.shouldRenderEquipmentForm = true;
+    }
 }

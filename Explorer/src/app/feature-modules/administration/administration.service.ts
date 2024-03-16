@@ -31,8 +31,8 @@ export class AdministrationService {
         );
     }
 
-    getEquipment(): Observable<PagedResults<Equipment>> {
-        return this.http.get<PagedResults<Equipment>>(
+    getEquipment(): Observable<Equipment[]> {
+        return this.http.get<Equipment[]>(
             environment.apiHost + "administration/equipment",
         );
     }
@@ -118,14 +118,15 @@ export class AdministrationService {
             comment;
         return this.http.patch<any>(route, { observe: "response" });
     }
-    getTouristWallet(
-        toursitId: number
-    ): Observable<Wallet> {
-        return this.http.get<Wallet>(environment.apiHost + "wallet/getTourists?touristId=" + toursitId)
+    getTouristWallet(toursitId: number): Observable<Wallet> {
+        return this.http.get<Wallet>(
+            environment.apiHost + "wallet/getTourists?touristId=" + toursitId,
+        );
     }
-    updateToursitWallet(
-        walletUpdate: walletUpdate
-    ): Observable<Wallet> {
-        return this.http.put<Wallet>(environment.apiHost + "wallet/" + walletUpdate.id, walletUpdate);
+    updateToursitWallet(walletUpdate: walletUpdate): Observable<Wallet> {
+        return this.http.put<Wallet>(
+            environment.apiHost + "wallet/" + walletUpdate.id,
+            walletUpdate,
+        );
     }
 }

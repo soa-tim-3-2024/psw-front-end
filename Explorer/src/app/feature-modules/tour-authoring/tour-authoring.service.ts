@@ -127,14 +127,14 @@ export class TourAuthoringService {
         );
     }
 
-    getEquipment(): Observable<PagedResults<Equipment>> {
-        return this.http.get<PagedResults<Equipment>>(
+    getEquipment(): Observable<Equipment[]> {
+        return this.http.get<Equipment[]>(
             environment.apiHost + "author/equipment",
         );
     }
 
-    getTourEquipment(id: number): Observable<PagedResults<Equipment>> {
-        return this.http.get<PagedResults<Equipment>>(
+    getTourEquipment(id: number): Observable<Equipment[]> {
+        return this.http.get<Equipment[]>(
             environment.apiHost + "tour/equipment/" + id,
         );
     }
