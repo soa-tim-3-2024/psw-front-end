@@ -98,7 +98,7 @@ export class TourExecutingComponent implements OnInit {
                 this.touristId = result.id;
 
                 this.getTouristPosition();
-                this.positionSubscription = interval(5000).subscribe(() => {
+                this.positionSubscription = interval(10000).subscribe(() => {
                     this.getTouristPosition();
                 });
             },
@@ -140,7 +140,7 @@ export class TourExecutingComponent implements OnInit {
     }
 
     checkKeyPointCompletion() {
-        if (this.session.status !== TourExecutionSessionStatus.Started) return;
+        if (this.session.status !== 0) return;
 
         this.activateKeyPointEncounter(-1, this.touristPosition);
         this.service
@@ -155,7 +155,7 @@ export class TourExecutingComponent implements OnInit {
                         this.session.nextKeyPointId != -1 &&
                         this.session.nextKeyPointId != session.nextKeyPointId
                     ) {
-                        this.showSecret(this.session.nextKeyPointId);
+                       // this.showSecret(this.session.nextKeyPointId);
                     }
                     this.session = session;
                     if (
@@ -240,7 +240,7 @@ export class TourExecutingComponent implements OnInit {
         if (r) {
             this.execution.tourId = this.session.tourId;
             this.execution.isCampaign = this.session.isCampaign;
-            this.service.abandonTour(this.execution).subscribe({
+            this.service.abandonTour(this.execution, this.session.id).subscribe({
                 next: (result: TourExecutionSession) => {
                     this.router.navigate(["/purchasedtours"]);
                 },

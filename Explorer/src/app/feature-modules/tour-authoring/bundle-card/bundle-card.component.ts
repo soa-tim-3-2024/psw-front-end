@@ -220,7 +220,7 @@ export class BundleCardComponent {
                         .getToursInCart(this.user.id)
                         .subscribe({
                             next: result => {
-                                this.addedTours = result.results;
+                                this.addedTours = result;
                             },
                         });
                 }

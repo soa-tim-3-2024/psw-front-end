@@ -55,8 +55,8 @@ export class ReviewComponent implements OnInit {
                     this.tourId = params["tourId"];
                     this.tourIdHelper = this.tourId;
                     this.service.getReviews(this.tourIdHelper).subscribe({
-                        next: (result: PagedResults<Review>) => {
-                            this.reviews = result.results;
+                        next: (result: Review[]) => {
+                            this.reviews = result;
                             this.reviewExists = false;
                         },
                     });
@@ -69,8 +69,8 @@ export class ReviewComponent implements OnInit {
         //if (this.tourId > 0) {
         this.tourIdHelper = this.tourId;
         this.service.getReviews(this.tourIdHelper).subscribe({
-            next: (result: PagedResults<Review>) => {
-                this.reviews = result.results;
+            next: (result: Review[]) => {
+                this.reviews = result;
                 this.service.canTourBeRated(this.tourIdHelper).subscribe({
                     next: (result: boolean) => {
                         this.reviewExists = result;
@@ -99,8 +99,8 @@ export class ReviewComponent implements OnInit {
 
     getReviewsByTourId(): void {
         this.service.getReviews(this.tourIdHelper).subscribe({
-            next: (result: PagedResults<Review>) => {
-                this.reviews = result.results;
+            next: (result: Review[]) => {
+                this.reviews = result;
             },
             error: (err: any) => {
                 console.log(err);
@@ -153,8 +153,8 @@ export class ReviewComponent implements OnInit {
         this.service.deleteReview(review).subscribe({
             next: () => {
                 this.service.getReviews(this.tourIdHelper).subscribe({
-                    next: (result: PagedResults<Review>) => {
-                        this.reviews = result.results;
+                    next: (result: Review[]) => {
+                        this.reviews = result;
                         this.reviewExists = true;
                     },
                     error: (err: any) => {

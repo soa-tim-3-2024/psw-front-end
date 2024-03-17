@@ -154,7 +154,7 @@ export class TourSearchComponent implements OnInit {
             this.getActiveTours();
         }, 100);
         setTimeout(() => {
-            this.onSearch(1);
+            this.getPublishedTours();
         }, 1000);
         this.radioButtonSelected = 0;
     }
@@ -236,9 +236,9 @@ export class TourSearchComponent implements OnInit {
 
     getPublishedTours(): void {
         this.service.getPublishedTours().subscribe({
-            next: (result: PagedResults<Tour>) => {
-                this.tours = result.results;
-                this.totalCount = result.totalCount;
+            next: (result: Tour[]) => {
+                this.tours = result;
+                this.totalCount = result.length;
             },
             error: (err: any) => {
                 console.log(err);
@@ -645,7 +645,7 @@ export class TourSearchComponent implements OnInit {
                 this.tours.push(obj);
             }
         } else {
-            this.onSearch(1);
+            this.getPublishedTours()
         }
         this.totalCount = this.tours.length;
     }

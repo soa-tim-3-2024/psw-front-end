@@ -14,9 +14,9 @@
                         class="image"
                         [style.background-image]="
                             'url(' +
-                            (item.keyPoint!.imagePath.startsWith('http')
-                                ? item.keyPoint!.imagePath
-                                : imageHost + item.keyPoint!.imagePath) +
+                            (item.keyPoints![0].imagePath.startsWith('http')
+                                ? item.keyPoints![0].imagePath
+                                : imageHost + item.keyPoints![0].imagePath) +
                             ')'
                         "
                     ></div>

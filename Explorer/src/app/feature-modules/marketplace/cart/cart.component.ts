@@ -21,6 +21,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { environment } from "src/env/environment";
 import { NotifierService } from "angular-notifier";
+import { Tour } from "../../tour-authoring/model/tour.model";
 
 @Component({
     selector: "xp-cart",
@@ -33,7 +34,7 @@ export class CartComponent implements OnInit {
     bundles: Bundle[] = [];
     orderItem: OrderItem;
     isDisabled: boolean;
-    data: TourLimitedView[] = [];
+    data: Tour[] = [];
     imageHost: string = environment.imageHost;
 
     constructor(
@@ -74,8 +75,8 @@ export class CartComponent implements OnInit {
 
     getToursInCart() {
         this.service.getToursInCart(this.user.id).subscribe({
-            next: (result: PagedResults<TourLimitedView>) => {
-                this.data = result.results;
+            next: (result: Tour[]) => {
+                this.data = result;
                 this.getShoppingCart(); // update the price
                 this.getDiscount();
             },

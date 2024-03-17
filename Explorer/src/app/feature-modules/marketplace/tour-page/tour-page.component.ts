@@ -76,8 +76,8 @@ export class TourPageComponent {
 
         this.marketplaceService.cart$.subscribe(cart => {
             this.marketplaceService.getToursInCart(this.user.id).subscribe({
-                next: (result: PagedResults<TourLimitedView>) => {
-                    this.addedTours = result.results;
+                next: (result: TourLimitedView[]) => {
+                    this.addedTours = result;
                     this.getShoppingCart(); // update the price
                 },
             });
@@ -138,7 +138,7 @@ export class TourPageComponent {
             next: (result: OrderItem) => {
                 this.marketplaceService.getToursInCart(this.user.id).subscribe({
                     next: result => {
-                        this.addedTours = result.results;
+                        this.addedTours = result;
                         this.marketplaceService
                             .getShoppingCart(this.user.id)
                             .subscribe();
@@ -172,7 +172,7 @@ export class TourPageComponent {
                         .getToursInCart(this.user.id)
                         .subscribe({
                             next: result => {
-                                this.addedTours = result.results;
+                                this.addedTours = result;
                             },
                         });
                 }
