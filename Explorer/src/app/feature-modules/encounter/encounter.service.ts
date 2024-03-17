@@ -43,14 +43,14 @@ export class EncounterService {
         currentUserId: number,
         page: number,
         pageSize: number,
-    ): Observable<PagedResults<Encounter>> {
+    ): Observable<Encounter[]> {
         const params = {
             currentUserId: currentUserId.toString(),
             page: page.toString(),
             pageSize: pageSize.toString(),
         };
 
-        return this.http.get<PagedResults<Encounter>>(
+        return this.http.get<Encounter[]>(
             environment.apiHost + "tourist/encounter/done-encounters",
             { params: params },
         );
