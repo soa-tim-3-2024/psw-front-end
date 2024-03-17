@@ -35,7 +35,7 @@ interface EncounterResponseDto {
 export class ActiveEncounterViewComponent implements AfterViewInit {
     points: any;
     encounters: Encounter[];
-    responses: EncounterResponseDto[]
+    responses: EncounterResponseDto[];
     filteredEncounters: Encounter[] = [];
     encounter?: Encounter;
     encounterInstance?: Boolean;
@@ -89,7 +89,12 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
     getEncounterInstance(encounterId: number) {
         this.service
             .getEncounterInstance(encounterId)
-            .subscribe(result => (this.encounterInstance = result));
+            .subscribe(result => this.logfunc(encounterId, result));
+    }
+
+    logfunc(encounterId: number, result: Boolean) {
+        this.encounterInstance = result;
+        console.log(encounterId, this.encounterInstance);
     }
 
     activateEncounter() {
@@ -240,55 +245,56 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
         this.service.getEncountersInRangeOf(userPosition).subscribe({
             next: (result: Encounter[]) => {
                 this.filteredEncounters = result;
-            this.filteredEncounters.forEach((enc, i) => {
-                this.filteredEncounters[i].picture = enc.picture.startsWith(
-                    "http",
-                )
-                    ? enc.picture
-                    : environment.imageHost + enc.picture;
+                this.filteredEncounters.forEach((enc, i) => {
+                    this.filteredEncounters[i].picture = enc.picture.startsWith(
+                        "http",
+                    )
+                        ? enc.picture
+                        : environment.imageHost + enc.picture;
 
-                this.service.getEncounterInstance(enc.id).subscribe(result => {
-                    this.loadEncounterInstance = result;
+                    this.service
+                        .getEncounterInstance(enc.id)
+                        .subscribe(result => {
+                            this.loadEncounterInstance = result;
+                        });
+                    if (!this.loadEncounterInstance) {
+                        this.mapComponent.setEncounterActiveMarker(
+                            enc.latitude,
+                            enc.longitude,
+                        );
+                    }
+                    if (this.loadEncounterInstance) {
+                        this.mapComponent.setEncounterCompletedMarker(
+                            enc.latitude,
+                            enc.longitude,
+                        );
+                    }
+                    // if (!this.loadEncounterInstance) {
+                    //     this.mapComponent.setEncounterMarker(
+                    //         enc.latitude,
+                    //         enc.longitude,
+                    //     );
+                    // }
                 });
-                if (!this.loadEncounterInstance) {
-                    this.mapComponent.setEncounterActiveMarker(
-                        enc.latitude,
-                        enc.longitude,
-                    );
-                }
-                if (this.loadEncounterInstance) {
-                    this.mapComponent.setEncounterCompletedMarker(
-                        enc.latitude,
-                        enc.longitude,
-                    );
-                }
-                // if (!this.loadEncounterInstance) {
-                //     this.mapComponent.setEncounterMarker(
-                //         enc.latitude,
-                //         enc.longitude,
-                //     );
-                // }
-            });
-            if (this.filteredEncounters) {
-                this.filteredEncounters.forEach(enc => {
-                    if (this.checkIfUserInEncounterRange(enc)) {
-                        this.encounter = enc;
-                        this.getEncounterInstance(enc.id);
-                        if (this.encounter.type === 1) {
-                            if (this.encounterInstance != undefined) {
-                                if (!this.encounterInstance) {
-                                    this.hiddenEncounterCheck = true;
-                                    this.handleHiddenLocationCompletion();
+                if (this.filteredEncounters) {
+                    this.filteredEncounters.forEach(enc => {
+                        if (this.checkIfUserInEncounterRange(enc)) {
+                            this.encounter = enc;
+                            this.getEncounterInstance(enc.id);
+                            if (this.encounter.type === 1) {
+                                if (this.encounterInstance != undefined) {
+                                    if (!this.encounterInstance) {
+                                        this.hiddenEncounterCheck = true;
+                                        this.handleHiddenLocationCompletion();
+                                    }
                                 }
                             }
                         }
-                    }
-                });
-            }
+                    });
+                }
             },
-            error () {}
+            error() {},
         });
-        
     }
 
     openSimulator() {

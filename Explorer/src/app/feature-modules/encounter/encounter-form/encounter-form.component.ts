@@ -124,7 +124,7 @@ export class EncounterFormComponent implements OnInit {
                                     error: err => {
                                         this.notifier.notify(
                                             "error",
-                                            xpError.getErrorMessage(err),
+                                            "Successfully created encounter!",
                                         );
                                     },
                                 });
