@@ -14,6 +14,9 @@ import { Review } from "../model/review.model";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { NotifierService } from "angular-notifier";
+import { Person } from "../../stakeholder/model/person.model";
+import { User } from "src/app/infrastructure/auth/model/user.model";
+import { AuthService } from "src/app/infrastructure/auth/auth.service";
 
 @Component({
     selector: "xp-review-form",
@@ -27,15 +30,17 @@ export class ReviewFormComponent implements OnChanges, OnInit {
     //@Input() shouldEdit: boolean = false;
     //@Input() tourIdHelper: number;
     //@Input() reviewExists: boolean;
+    user: User;
     shouldEdit: boolean = false;
     tourIdHelper: number;
     faXmark = faXmark;
     currentDate: Date = new Date();
     constructor(
+        private authService: AuthService,
         private service: MarketplaceService,
         public dialog: MatDialogRef<ReviewFormComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private notifier: NotifierService
+        private notifier: NotifierService,
     ) {}
 
     ngOnInit(): void {
@@ -48,6 +53,9 @@ export class ReviewFormComponent implements OnChanges, OnInit {
             this.imagesList = this.review.images.slice(); //kopija, da ne obrise i slike iz review odmah
         }
         console.log(this.reviewForm.value.tourVisitDate);
+        this.authService.user$.subscribe(user => {
+            this.user = user;
+        });
     }
     ngOnChanges(changes: SimpleChanges): void {
         this.reviewForm.reset();
@@ -74,6 +82,7 @@ export class ReviewFormComponent implements OnChanges, OnInit {
             const review: Review = {
                 rating: this.reviewForm.value.rating || 0,
                 comment: this.reviewForm.value.comment || "",
+                username: this.user.username,
                 tourVisitDate:
                     this.reviewForm.value.tourVisitDate || new Date(),
                 tourId: this.tourIdHelper || 0,
@@ -91,11 +100,14 @@ export class ReviewFormComponent implements OnChanges, OnInit {
                     this.dialog.close([false, false]); //review not Added, review Updated
                 },
             });
-        } 
+        }
         if (!this.isFormValid()) {
-            this.notifier.notify("error", "Please enter valid data. All fields are required.");
+            this.notifier.notify(
+                "error",
+                "Please enter valid data. All fields are required.",
+            );
             return;
-          } 
+        }
     }
 
     updateReview(): void {
@@ -103,6 +115,7 @@ export class ReviewFormComponent implements OnChanges, OnInit {
             const review: Review = {
                 rating: this.reviewForm.value.rating || 0,
                 comment: this.reviewForm.value.comment || "",
+                username: this.user.username,
                 tourVisitDate:
                     this.reviewForm.value.tourVisitDate || new Date(),
                 tourId: this.review.tourId || 0,
@@ -120,9 +133,12 @@ export class ReviewFormComponent implements OnChanges, OnInit {
             });
         }
         if (!this.isFormValid()) {
-            this.notifier.notify("error", "Please enter valid data. All fields are required.");
+            this.notifier.notify(
+                "error",
+                "Please enter valid data. All fields are required.",
+            );
             return;
-        }  
+        }
     }
 
     onFileSelected(event: any): void {

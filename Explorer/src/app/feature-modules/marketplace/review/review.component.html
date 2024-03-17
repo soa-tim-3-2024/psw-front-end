@@ -11,6 +11,7 @@
 <div class="review-list">
     <div class="review" *ngFor="let review of reviews">
         <div class="border">
+            <div>Username: {{ review.username }}</div>
             <div class="stars">
                 {{ review.rating }}
                 <fa-icon class="fa-star" [icon]="faStar" />

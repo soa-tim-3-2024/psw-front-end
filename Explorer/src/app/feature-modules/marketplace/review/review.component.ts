@@ -44,7 +44,6 @@ export class ReviewComponent implements OnInit {
 
     ngOnInit(): void {
         this.authService.user$.subscribe(user => {
-            console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
             this.user = user;
             if (this.user.id != 0)
                 this.route.params.subscribe(params => {
@@ -69,7 +68,6 @@ export class ReviewComponent implements OnInit {
     getReviews(): void {
         //if (this.tourId > 0) {
         this.tourIdHelper = this.tourId;
-        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         this.service.getReviews(this.tourIdHelper).subscribe({
             next: (result: Review[]) => {
                 this.reviews = result;

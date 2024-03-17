@@ -34,7 +34,7 @@ export interface AddKeyPointModalData {
     keyPoint?: KeyPoint;
     isUpdateForm: Boolean;
     tour: Tour;
-    order: number
+    order: number;
 }
 
 @Component({
@@ -227,17 +227,19 @@ export class KeyPointModalComponent implements OnInit {
             imagePath: this.keyPointForm.value.imagePath || "",
             order: this.keyPoint!.order,
             haveSecret: this.keyPointForm.value.secretDescription?.length != 0,
-            secret: this.keyPointForm.value.secretDescription?.length != 0 ?
-                    {
-                        images: [""],
-                        description:
-                            this.keyPointForm.value.secretDescription || "",
-                    } || null : null,
+            secret:
+                this.keyPointForm.value.secretDescription?.length != 0
+                    ? {
+                          images: [""],
+                          description:
+                              this.keyPointForm.value.secretDescription || "",
+                      } || null
+                    : null,
             hasEncounter: this.hasEncounter,
             isEncounterRequired: this.isEncounterRequired,
         };
 
-        if (!keyPoint.imagePath) {
+        if (keyPoint.imagePath) {
             this.service.uploadImage(this.tourImageFile!).subscribe({
                 next: (imagePath: string) => {
                     keyPoint.imagePath = imagePath;
@@ -251,56 +253,49 @@ export class KeyPointModalComponent implements OnInit {
                     this.notifier.notify("error", "Invalid keypoint image.");
                 },
             });
-        } else {
-            // Get Key Points location address
-            this.mapService
-                .reverseSearch(keyPoint.latitude, keyPoint.longitude)
-                .subscribe(res => {
-                    let addressInfo = {
-                        number: "",
-                        street: "",
-                        city: "",
-                        postalCode: "",
-                        country: "",
-                    };
-
-                    let addressParts = res.display_name.split(",");
-
-                    addressInfo = this.setAddressInfo(
-                        addressInfo,
-                        addressParts,
-                    );
-                    let concatenatedAddress =
-                        addressInfo.number +
-                        " " +
-                        addressInfo.street +
-                        " " +
-                        addressInfo.city +
-                        " " +
-                        addressInfo.postalCode +
-                        " " +
-                        addressInfo.country;
-
-                    keyPoint.locationAddress = concatenatedAddress;
-
-                    this.service.updateKeyPoint(keyPoint).subscribe({
-                        next: response => {
-                            this.keyPointUpdated.emit(response);
-                            this.dialogRef.close();
-                            this.notifier.notify(
-                                "success",
-                                "Updated keypoint!",
-                            );
-                        },
-                        error: err => {
-                            this.notifier.notify(
-                                "error",
-                                xpError.getErrorMessage(err),
-                            );
-                        },
-                    });
-                });
         }
+        // Get Key Points location address
+        this.mapService
+            .reverseSearch(keyPoint.latitude, keyPoint.longitude)
+            .subscribe(res => {
+                let addressInfo = {
+                    number: "",
+                    street: "",
+                    city: "",
+                    postalCode: "",
+                    country: "",
+                };
+
+                let addressParts = res.display_name.split(",");
+
+                addressInfo = this.setAddressInfo(addressInfo, addressParts);
+                let concatenatedAddress =
+                    addressInfo.number +
+                    " " +
+                    addressInfo.street +
+                    " " +
+                    addressInfo.city +
+                    " " +
+                    addressInfo.postalCode +
+                    " " +
+                    addressInfo.country;
+
+                keyPoint.locationAddress = concatenatedAddress;
+
+                this.service.updateKeyPoint(keyPoint).subscribe({
+                    next: response => {
+                        this.dialogRef.close();
+                        this.keyPointUpdated.emit(response);
+                        this.notifier.notify("success", "Updated keypoint!");
+                    },
+                    error: err => {
+                        this.notifier.notify(
+                            "error",
+                            xpError.getErrorMessage(err),
+                        );
+                    },
+                });
+            });
     }
 
     isValidForm(): boolean {
