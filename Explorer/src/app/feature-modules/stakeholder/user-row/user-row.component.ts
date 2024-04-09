@@ -9,6 +9,7 @@ import {
     faUserCheck,
     faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import { UserFollowing } from "../model/user-following.model";
 
 @Component({
     selector: "xp-user-row",
@@ -17,10 +18,10 @@ import {
 })
 export class UserRowComponent {
     currentUserId: number;
-    @Input() user: User;
+    @Input() user: UserFollowing;
     @Input() person: Person;
     @Input() followId: number;
-    @Input() followStatus: boolean;
+    @Input() followStatus: boolean | undefined;
     @Input() enableFollow: boolean = false;
     @Output() unfollowOrFollowEvent = new EventEmitter<number>();
 

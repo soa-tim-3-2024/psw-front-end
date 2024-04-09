@@ -15,6 +15,7 @@ import * as DOMPurify from "dompurify";
 import { marked } from "marked";
 import { Wallet } from "../model/wallet.model";
 import { UserClubsDialogComponent } from "../user-clubs-dialog/user-clubs-dialog.component";
+import { UserFollowing } from "../model/user-following.model";
 
 @Component({
     selector: "xp-user-profile",
@@ -27,7 +28,7 @@ export class UserProfileComponent implements OnInit {
     person: Person;
     followers: Follower[] = [];
     followersCount: number;
-    followings: Following[] = [];
+    followings: UserFollowing[] = [];
     followingsCount: number;
     showFollowers: boolean = false;
     showFollowings: boolean = false;
@@ -63,8 +64,8 @@ export class UserProfileComponent implements OnInit {
         });
     }
     loadFollowings() {
-        this.service.getFollowings(this.user.id).subscribe(result => {
-            this.followings = result.results;
+        this.service.getUserFollowings(this.user.id.toString()).subscribe(result => {
+            this.followings = result;
             this.followingsCount = this.followings.length;
             this.followings.forEach(item => {
                 item.followingStatus = true;
@@ -120,6 +121,7 @@ export class UserProfileComponent implements OnInit {
         const dialogRef = this.dialog.open(FollowerSearchDialogComponent, {
             data: {
                 userId: this.user.id,
+                username: this.user.username
             },
         });
         dialogRef.afterClosed().subscribe(item => {

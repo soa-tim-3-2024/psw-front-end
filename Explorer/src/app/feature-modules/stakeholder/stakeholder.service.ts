@@ -24,6 +24,8 @@ import { BundleRecord } from "./model/bundle-record.model";
 import { Club } from "../marketplace/model/club.model";
 import { WishlistNotification } from "./model/wishlist-notification.model";
 import { Problem } from "../marketplace/model/problem.model";
+import { NewFollowing } from "./model/new-following.mode";
+import { UserFollowing } from "./model/user-following.model";
 
 @Injectable({
     providedIn: "root",
@@ -85,6 +87,11 @@ export class StakeholderService {
             environment.apiHost + "follower/followings/" + id,
         );
     }
+    getUserFollowings(id: string): Observable<UserFollowing[]> {
+        return this.http.get<UserFollowing[]>(
+            environment.apiHost + "follower/user-followings/" + id,
+        );
+    }
     getSearched(searchUsername: string): Observable<PagedResults<UserFollow>> {
         return this.http.get<PagedResults<UserFollow>>(
             environment.apiHost + "follower/search/" + searchUsername,
@@ -98,6 +105,12 @@ export class StakeholderService {
     addFollowing(follow: FollowerCreate): Observable<FollowerCreate> {
         return this.http.post<FollowerCreate>(
             environment.apiHost + "follower",
+            follow,
+        );
+    }
+    createNewFollowing(follow: NewFollowing): Observable<any> {
+        return this.http.post<any>(
+            environment.apiHost + "follower/create",
             follow,
         );
     }
