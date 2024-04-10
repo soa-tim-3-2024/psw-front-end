@@ -26,7 +26,7 @@ export class UserProfileComponent implements OnInit {
     editing = false;
     user: User;
     person: Person;
-    followers: Follower[] = [];
+    followers: UserFollowing[] = [];
     followersCount: number;
     followings: UserFollowing[] = [];
     followingsCount: number;
@@ -73,11 +73,11 @@ export class UserProfileComponent implements OnInit {
         });
     }
     loadFollowers() {
-        this.service.getFollowers(this.user.id).subscribe(result => {
-            this.followers = result.results;
+        this.service.getUserFollowers(this.user.id.toString()).subscribe(result => {
+            this.followers = result;
             this.followersCount = this.followers.length;
             this.followers.forEach(item => {
-                item.followingStatus = true;
+                item.followingStatus = false;
             });
         });
     }
@@ -100,6 +100,7 @@ export class UserProfileComponent implements OnInit {
             },
         });
         dialogRef.afterClosed().subscribe(item => {
+            this.loadFollowings();
             this.loadFollowers();
         });
     }
@@ -115,6 +116,7 @@ export class UserProfileComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(item => {
             this.loadFollowings();
+            this.loadFollowers();
         });
     }
     openFollowerSearchDialog(): void {

@@ -26,6 +26,7 @@ import { WishlistNotification } from "./model/wishlist-notification.model";
 import { Problem } from "../marketplace/model/problem.model";
 import { NewFollowing } from "./model/new-following.mode";
 import { UserFollowing } from "./model/user-following.model";
+import { UnfollowUser } from "./model/unfollow-user.model";
 
 @Injectable({
     providedIn: "root",
@@ -87,11 +88,19 @@ export class StakeholderService {
             environment.apiHost + "follower/followings/" + id,
         );
     }
+    //nove funkcije za dobavljane pracenih korisnika iz golang-a
+    //------------------------------------------------------
+    getUserFollowers(id: string): Observable<UserFollowing[]> {
+        return this.http.get<UserFollowing[]>(
+            environment.apiHost + "follower/user-followers/" + id,
+        );
+    }
     getUserFollowings(id: string): Observable<UserFollowing[]> {
         return this.http.get<UserFollowing[]>(
             environment.apiHost + "follower/user-followings/" + id,
         );
     }
+    //------------------------------------------------------
     getSearched(searchUsername: string): Observable<PagedResults<UserFollow>> {
         return this.http.get<PagedResults<UserFollow>>(
             environment.apiHost + "follower/search/" + searchUsername,
@@ -112,6 +121,12 @@ export class StakeholderService {
         return this.http.post<any>(
             environment.apiHost + "follower/create",
             follow,
+        );
+    }
+    unfollowUser(unfollow: UnfollowUser): Observable<any> {
+        return this.http.put<any>(
+            environment.apiHost + "follower/unfollow",
+            unfollow,
         );
     }
     getByUserId(userId: number): Observable<Person> {

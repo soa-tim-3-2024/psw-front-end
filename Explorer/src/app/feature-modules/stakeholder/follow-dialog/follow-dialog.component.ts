@@ -8,8 +8,10 @@ import { faL } from "@fortawesome/free-solid-svg-icons";
 import { StakeholderService } from "../stakeholder.service";
 import { FollowerCreate } from "../model/follower-create.model";
 import { UserFollowing } from "../model/user-following.model";
+import { NewFollowing } from "../model/new-following.mode";
+import { UnfollowUser } from "../model/unfollow-user.model";
 export interface ModalData {
-    followers: Follower[];
+    followers: UserFollowing[];
     followings: UserFollowing[];
     showFollowers: boolean;
     showFollowings: boolean;
@@ -23,7 +25,8 @@ export interface ModalData {
 })
 export class FollowDialogComponent implements OnInit {
     userId: number;
-    followers: Follower[] = [];
+    user: User;
+    followers: UserFollowing[] = [];
     followings: UserFollowing[] = [];
     showFollowers: boolean = false;
     showFollowings: boolean = false;
@@ -35,75 +38,56 @@ export class FollowDialogComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.user = this.data.user
         this.followers = this.data.followers;
         this.followings = this.data.followings;
         this.showFollowers = this.data.showFollowers;
         this.showFollowings = this.data.showFollowings;
         this.userId = this.data.user.id;
+        this.followers.forEach(item => {
+            if(this.followings.find(f => f.userId == item.userId)){
+                item.followingStatus = true
+            }
+        });
     }
 
     unfollowOrFollow(id: number): void {
-      //RESITI UNFOLLOW
-        /*  console.log(id);
-        var clicked = this.followings.find(f => f.userId == id.toString());
+        var clicked = this.followers.find(f => f.userId == id.toString());
+        if (clicked == undefined) {
+            clicked = this.followings.find(f => f.userId == id.toString());
+        }
         if (clicked != undefined) {
-            if (clicked.followingStatus) {
-                this.service.deleteFollowing(id).subscribe({
-                    next: () => {
+            if (!clicked.followingStatus) {
+                const followCreate1: NewFollowing = {
+                    userId: this.userId.toString(),
+                    username: this.user.username,
+                    profileImage: 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg',
+                    followingUserId: clicked.userId.toString(),
+                    followingUsername: clicked.username,
+                    followingProfileImage: 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'
+                };
+                this.service.createNewFollowing(followCreate1).subscribe({
+                    next: (result: any) => {
                         if (clicked != undefined) {
-                            clicked.followingStatus = false;
+                            clicked.followingStatus = true;
+                            this.followings.push(clicked)
                         }
                     },
-                });
-            } else {
-                this.addFollowing(clicked);
-            }
-        }*/
-    }
-    addFollowing(following: Following): void {
-        const followCreate: FollowerCreate = {
-            followedById: this.userId,
-            userId: following.following.id,
-        };
-        this.service.addFollowing(followCreate).subscribe({
-            next: (result: FollowerCreate) => {
-                console.log(result.id);
-                if (result.id != undefined) {
-                    following.id = result.id;
+                });    
+            }else{
+                const unfollow: UnfollowUser = {
+                    userId: this.userId.toString(),
+                    userToUnfollowId: clicked.userId.toString()
                 }
-                following.followingStatus = true;
-            },
-        });
-    }
-    removeOrFollow(id: number): void {
-        var clicked = this.followers.find(f => f.id == id);
-        if (clicked != undefined) {
-            if (clicked.followingStatus) {
-                this.service.deleteFollowing(id).subscribe({
-                    next: () => {
+                this.service.unfollowUser(unfollow).subscribe({
+                    next: (result: any) => {
                         if (clicked != undefined) {
                             clicked.followingStatus = false;
+                            this.followings = this.followings.filter(f => f.userId != clicked?.userId)
                         }
                     },
                 });
-            } else {
-                this.addFollower(id, clicked);
             }
         }
-    }
-    addFollower(id: number, follwer: Follower): void {
-        const followCreate: FollowerCreate = {
-            userId: this.userId,
-            followedById: follwer.followedBy.id,
-        };
-        this.service.addFollowing(followCreate).subscribe({
-            next: (result: FollowerCreate) => {
-                console.log(result.id);
-                if (result.id != undefined) {
-                    follwer.id = result.id;
-                }
-                follwer.followingStatus = true;
-            },
-        });
     }
 }

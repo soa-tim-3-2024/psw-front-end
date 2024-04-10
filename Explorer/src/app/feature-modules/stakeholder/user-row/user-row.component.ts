@@ -22,7 +22,7 @@ export class UserRowComponent {
     @Input() person: Person;
     @Input() followId: number;
     @Input() followStatus: boolean | undefined;
-    @Input() enableFollow: boolean = false;
+    @Input() enableFollow: boolean = true;
     @Output() unfollowOrFollowEvent = new EventEmitter<number>();
 
     faEnvelope = faEnvelope;
