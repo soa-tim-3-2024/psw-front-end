@@ -25,6 +25,7 @@ import { TransactionRecordsNotificationsComponent } from "./transaction-records-
 import { UserClubsDialogComponent } from "./user-clubs-dialog/user-clubs-dialog.component";
 import { ClubNotificationsComponent } from "./club-notifications/club-notifications.component";
 import { WishlistNotificationsComponent } from "./wishlist-notifications/wishlist-notifications.component";
+import { FollowerRecommendationDialogComponent } from "./follower-recommendation-dialog/follower-recommendation-dialog.component";
 
 @NgModule({
     declarations: [
@@ -41,6 +42,7 @@ import { WishlistNotificationsComponent } from "./wishlist-notifications/wishlis
         FollowDialogComponent,
         UserNotificationsComponent,
         FollowerSearchDialogComponent,
+        FollowerRecommendationDialogComponent,
         UserRowComponent,
         PaymentHistoryComponent,
         ShoppingNotificationsComponent,

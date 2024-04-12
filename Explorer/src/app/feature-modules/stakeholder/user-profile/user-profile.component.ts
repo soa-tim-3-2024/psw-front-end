@@ -16,6 +16,7 @@ import { marked } from "marked";
 import { Wallet } from "../model/wallet.model";
 import { UserClubsDialogComponent } from "../user-clubs-dialog/user-clubs-dialog.component";
 import { UserFollowing } from "../model/user-following.model";
+import { FollowerRecommendationDialogComponent } from "../follower-recommendation-dialog/follower-recommendation-dialog.component";
 
 @Component({
     selector: "xp-user-profile",
@@ -34,6 +35,7 @@ export class UserProfileComponent implements OnInit {
     showFollowings: boolean = false;
     bioMarkdown: string;
     wallet: Wallet;
+    recommendations: UserFollowing[] = []
 
     constructor(
         private authService: AuthService,
@@ -61,6 +63,7 @@ export class UserProfileComponent implements OnInit {
             this.loadFollowers();
             this.loadFollowings();
             this.loadWallet();
+            this.loadRecommendations();
         });
     }
     loadFollowings() {
@@ -72,6 +75,15 @@ export class UserProfileComponent implements OnInit {
             });
         });
     }
+    loadRecommendations() {
+        this.service.getUserRecommendations(this.user.id.toString()).subscribe(result => {
+            this.recommendations = result;
+            this.recommendations.forEach(item => {
+                item.followingStatus = false;
+            });
+        });
+    }
+
     loadFollowers() {
         this.service.getUserFollowers(this.user.id.toString()).subscribe(result => {
             this.followers = result;
@@ -114,9 +126,11 @@ export class UserProfileComponent implements OnInit {
                 user: this.user,
             },
         });
+        console.log(this.recommendations)
         dialogRef.afterClosed().subscribe(item => {
             this.loadFollowings();
             this.loadFollowers();
+            console.log(this.recommendations)
         });
     }
     openFollowerSearchDialog(): void {
@@ -131,6 +145,22 @@ export class UserProfileComponent implements OnInit {
             this.loadFollowers();
         });
     }
+
+    openRecommendationDialog(): void {
+        const dialogRef = this.dialog.open(FollowerRecommendationDialogComponent, {
+            data: {
+                userId: this.user.id,
+                username: this.user.username,
+                followings: this.followings,
+                users: this.recommendations,
+            },
+        });
+        dialogRef.afterClosed().subscribe(item => {
+            this.loadFollowings();
+            this.loadFollowers();
+        });
+    }
+
     goToAllNotifications(): void {
         this.router.navigate(["/user-notifications"]);
     }

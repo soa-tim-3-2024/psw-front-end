@@ -10,19 +10,21 @@ import { UserFollowing } from "../model/user-following.model";
 export interface ModalData {
     userId: number;
     username: string;
+    users: UserFollowing[];
+    followings: UserFollowing[];
 }
 @Component({
     selector: "xp-follower-search-dialog",
-    templateUrl: "./follower-search-dialog.component.html",
-    styleUrls: ["./follower-search-dialog.component.css"],
+    templateUrl: "./follower-recommendation-dialog.component.html",
+    styleUrls: ["./follower-recommendation-dialog.component.css"],
 })
-export class FollowerSearchDialogComponent implements OnInit {
+export class FollowerRecommendationDialogComponent implements OnInit {
     userId: number;
     username: string;
     faSearch = faSearch;
-    users: UserFollow[] = [];
+    showTable: boolean=false;
+    users: UserFollowing[] = [];
     followings: UserFollowing[] = [];
-    searchUsername: string;
     constructor(
         private service: StakeholderService,
         @Inject(MAT_DIALOG_DATA) public data: ModalData,
@@ -31,22 +33,41 @@ export class FollowerSearchDialogComponent implements OnInit {
     ngOnInit(): void {
         this.userId = this.data.userId;
         this.username = this.data.username;
+        this.users = this.data.users;
+        this.followings = this.data.followings;
+        this.showTable=true;
         this.loadFollowings();
+        this.loadRecommendations();
+        console.log(this.users)
         console.log(this.followings)
+        console.log(this.userId)
     }
     loadFollowings() {
         this.service.getUserFollowings(this.userId.toString()).subscribe(result => {
             this.followings = result;
         });
     }
-    follow(id: number) {
-        var clicked = this.users.find(u => u.id == id);
+
+
+    loadRecommendations() {
+        this.service.getUserRecommendations(this.userId.toString()).subscribe(result => {
+            this.users = result;
+            this.users.forEach(user => {
+                    user.followingStatus = false;
+            });
+        });
+        console.log(this.users)
+    }
+
+
+    follow(id: string) {
+        var clicked = this.users.find(u => u.userId == id);
         if (clicked != undefined) {
             const followCreate1: NewFollowing = {
                 userId: this.userId.toString(),
                 username: this.username,
                 profileImage: 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg',
-                followingUserId: clicked.id.toString(),
+                followingUserId: clicked.userId,
                 followingUsername: clicked.username,
                 followingProfileImage: 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'
             };
@@ -60,16 +81,5 @@ export class FollowerSearchDialogComponent implements OnInit {
             });
         }
     }
-    search() {
-        this.service.getSearched(this.searchUsername).subscribe(result => {
-            this.users = result.results;
-            this.users.forEach(user => {
-                if (this.followings.some(f => user.id.toString() == f.userId)) {
-                    user.followingStatus = true;
-                } else {
-                    user.followingStatus = false;
-                }
-            });
-        });
-    }
+
 }
