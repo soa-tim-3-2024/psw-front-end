@@ -111,7 +111,7 @@ export class NavbarComponent implements OnInit {
     }
 
     getUnseenNotifications() {
-        if (this.user!.id !== 0) {
+      /*  if (this.user!.id !== 0) {
             this.stakeholderService.countNotifications().subscribe({
                 next: (result: number) => {
                     if (this.user?.role === "tourist") {
@@ -131,7 +131,7 @@ export class NavbarComponent implements OnInit {
                     }
                 },
             });
-        }
+        }*/
     }
 
     showCart() {
