@@ -10,6 +10,7 @@ import { UpdateBlog } from "../model/blog-update.model";
 import { Following } from "../../stakeholder/model/following.model";
 import { StakeholderService } from "../../stakeholder/stakeholder.service";
 import { trigger, transition, style, animate } from "@angular/animations";
+import { UserFollowing } from "../../stakeholder/model/user-following.model";
 
 @Component({
     selector: "xp-blogs",
@@ -31,6 +32,7 @@ export class BlogsComponent implements OnInit {
     blogs: Blog[] = [];
     user: User | undefined;
     followings: Following[] = [];
+    followingsGo: UserFollowing[] = [];
     selectedStatus: number = 5;
     @Input() clubId: number = -1;
     constructor(
@@ -44,6 +46,7 @@ export class BlogsComponent implements OnInit {
             this.user = user;
         });
         this.loadFollowings();
+        this.loadFollowingsGo();
         this.getBlogs();
     }
 
@@ -53,6 +56,22 @@ export class BlogsComponent implements OnInit {
             .subscribe(result => {
                 this.followings = result.results;
             });
+    }
+
+    loadFollowingsGo(): void {
+        this.serviceUsers
+            .getUserFollowings(this.user?.id + "")
+            .subscribe(result => {
+                this.followingsGo = result;
+            });
+    }
+
+    checkIfFollowingGo(authorId: number): any {
+        var found = false;
+        this.followingsGo.forEach(function (value) {
+            if (value.userId == "" + authorId) found = true;
+        });
+        return found;
     }
 
     checkIfFollowing(authorId: number): any {
@@ -72,22 +91,30 @@ export class BlogsComponent implements OnInit {
         );
     }
 
+    removeNotFollowings(): void {
+        this.blogs = this.blogs.filter(
+            b =>
+                b.authorId == this.user?.id ||
+                this.checkIfFollowingGo(b.authorId),
+        );
+    }
+
     filterByStatus(status: number) {
         this.getBlogs();
         this.selectedStatus = status;
     }
 
     getBlogs(): void {
-        if(this.clubId == -1){
+        if (this.clubId == -1) {
             this.service.getBlogs().subscribe({
                 next: (result: PagedResults<Blog>) => {
                     this.blogs = result.results;
                     this.removePrivates();
+                    this.removeNotFollowings();
                 },
                 error: () => {},
             });
-        }
-        else{
+        } else {
             this.service.getClubBlogs(this.clubId).subscribe({
                 next: (result: PagedResults<Blog>) => {
                     this.blogs = result.results;
