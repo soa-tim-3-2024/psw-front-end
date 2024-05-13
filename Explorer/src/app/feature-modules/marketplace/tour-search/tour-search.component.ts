@@ -236,9 +236,9 @@ export class TourSearchComponent implements OnInit {
 
     getPublishedTours(): void {
         this.service.getPublishedTours().subscribe({
-            next: (result: Tour[]) => {
-                this.tours = result;
-                this.totalCount = result.length;
+            next: (result: any)=> {
+                this.tours = result.TourResponses;
+                this.totalCount = this.tours.length;
             },
             error: (err: any) => {
                 console.log(err);

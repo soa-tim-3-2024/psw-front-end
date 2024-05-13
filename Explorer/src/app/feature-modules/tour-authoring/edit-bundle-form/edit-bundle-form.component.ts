@@ -7,6 +7,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { PagedResults } from "src/app/shared/model/paged-results.model";
 import { Tour } from "../model/tour.model";
 import { BundleCreation } from "../model/bundle-creation.model";
+import { TourResponses } from "../model/tour-response.model";
 
 @Component({
     selector: "xp-edit-bundle-form",
@@ -56,12 +57,12 @@ export class EditBundleFormComponent implements OnInit {
     }
 
     getToursForAuthor(): void {
-        this.service.getTours().subscribe({
-            next: (result: Tour[]) => {
-                this.tours = result;
+       /* this.service.getTours(1).subscribe({
+            next: (result: TourResponses) => {
+                this.tours = result.tours;
                 this.tours.forEach(t => {});
             },
-        });
+        });*/
     }
 
     submit(): void {

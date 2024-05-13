@@ -62,6 +62,7 @@ export class EditTourFormComponent implements OnInit {
             difficulty: this.data.difficulty.toString() || null,
             tags: this.data.tags || null,
             price: this.data.price.toString() || null,
+            authorId: this.data.authorId
         };
         this.editTourForm.patchValue(tourPatch);
     }
@@ -96,6 +97,7 @@ export class EditTourFormComponent implements OnInit {
             tags: updatedData.tags ? updatedData.tags : [],
             price: parseInt(updatedData.price || "0"),
             durations: this.data.durations,
+            authorId: this.data.authorId
         };
 
         // console.log(this.data.id);

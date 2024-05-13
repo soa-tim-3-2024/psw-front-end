@@ -311,7 +311,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
         this.registerOnClick();
 
         if (this.isKeyPointMap) {
-            this.mapService.getAuthorsFacilities().subscribe({
+            /*this.mapService.getAuthorsFacilities().subscribe({
                 next: (result: PagedResults<Facilities>) => {
                     let facilities = result.results;
 
@@ -323,7 +323,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
                     }
                 },
                 error: () => {},
-            });
+            });*/
             this.showKeyPointsDuringTourAuthoring = true;
             if (this.keyPoints) this.showKeyPointsOnTourAuthoringMap();
         }

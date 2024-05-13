@@ -41,7 +41,7 @@ export class FacilitiesComponent implements OnInit {
     }
 
     getFacilities(): void {
-        this.service.getAuthorsFacilities().subscribe({
+       /* this.service.getAuthorsFacilities().subscribe({
             next: (result: PagedResults<Facilities>) => {
                 this.facilities = result.results;
 
@@ -53,7 +53,7 @@ export class FacilitiesComponent implements OnInit {
                 }
             },
             error: () => {},
-        });
+        });*/
     }
 
     onMapClicked(): void {

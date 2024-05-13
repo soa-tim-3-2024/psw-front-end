@@ -306,8 +306,8 @@ export class MarketplaceService {
             environment.apiHost + "tourist/facility/public",
         );
     }
-    getPublishedTours(): Observable<Tour[]> {
-        return this.http.get<Tour[]>(
+    getPublishedTours(): Observable<any> {
+        return this.http.get<any>(
             environment.apiHost + "market-place/tours/published",
         );
     }

@@ -30,6 +30,7 @@ import { MarketplaceService } from "../../marketplace/marketplace.service";
 import { User } from "src/app/infrastructure/auth/model/user.model";
 import { AuthService } from "src/app/infrastructure/auth/auth.service";
 import { animate, style, transition, trigger } from "@angular/animations";
+import { TourResponses } from "../model/tour-response.model";
 
 @Component({
     selector: "xp-tour",
@@ -184,10 +185,18 @@ export class TourComponent implements OnInit {
     }
 
     getTours(): void {
-        this.tourAuthoringService.getTours().subscribe({
-            next: (result: Tour[]) => {
-                this.tours = result;
+        this.tourAuthoringService.getTours(this.user.id).subscribe({
+            next: (result: any) => {
+                this.tours = result.TourResponses;
                 this.totalCount = this.tours.length;
+                for(let i = 0; i < this.tours.length; i++){
+                    if(result.TourResponses[i].status == 'Published')
+                        this.tours[i].status = 1
+                    if(result.TourResponses[i].status == 'Archived')
+                        this.tours[i].status = 2
+                    if(result.TourResponses[i].status == 'Draft')
+                        this.tours[i].status = 0
+                }
             },
             error: (err: any) => {
                 console.log(err);

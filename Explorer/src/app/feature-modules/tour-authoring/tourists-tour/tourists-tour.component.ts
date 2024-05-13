@@ -11,6 +11,7 @@ import { MarketplaceService } from "../../marketplace/marketplace.service";
 import { TourExecutionService } from "../../tour-execution/tour-execution.service";
 import { Router } from "@angular/router";
 import { TourExecutionStart } from "../../tour-execution/model/tour-execution-start-model";
+import { TourResponses } from "../model/tour-response.model";
 
 @Component({
     selector: "xp-tourists-tour",
@@ -86,14 +87,14 @@ export class TouristsTourComponent implements OnInit {
     }
 
     getTours(): void {
-        this.tourAuthoringService.getTours().subscribe({
-            next: (result: Tour[]) => {
-                this.tour = result;
+      /*  this.tourAuthoringService.getTours(1).subscribe({
+            next: (result: TourResponses) => {
+                this.tour = result.tours;
             },
             error: (err: any) => {
                 console.log(err);
             },
-        });
+        });*/
     }
 
     onEditClicked(tour: Tour): void {

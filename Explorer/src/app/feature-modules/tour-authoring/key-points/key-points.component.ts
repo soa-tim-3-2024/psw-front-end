@@ -76,7 +76,13 @@ export class KeyPointsComponent implements OnInit {
             this.service.getTour(Number(param)).subscribe({
                 next: result => {
                     this.tour = result;
-                    this.keyPoints = this.tour.keyPoints!;
+                    if(result.status == 'Published')
+                        this.tour!.status = 1
+                    if(result.status == 'Archived')
+                        this.tour!.status = 2
+                    if(result.status == 'Draft')
+                        this.tour!.status = 0
+                    this.keyPoints = this.tour!.keyPoints!;
                     this.getKeyPoints();
                     this.enableButtons();
                 },
