@@ -46,7 +46,7 @@ export class AuthService {
             .pipe(
                 tap(authenticationResponse => {
                     this.tokenStorage.saveAccessToken(
-                        authenticationResponse.accessToken,
+                        authenticationResponse.AccessToken,
                     );
                     this.setUser();
                 }),

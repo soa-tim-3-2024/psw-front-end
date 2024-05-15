@@ -23,7 +23,7 @@ export class TourAuthoringService {
 
     getTours(id: number): Observable<any> {
         return this.http.get<any>(
-            "http://localhost:44333/api/tour/authors/"+id,
+            "https://localhost:44334/api/tour/authors/"+id,
         );
     }
 

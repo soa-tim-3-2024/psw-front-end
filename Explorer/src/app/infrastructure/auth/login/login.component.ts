@@ -35,8 +35,8 @@ export class LoginComponent {
 
     login(): void {
         const login: Login = {
-            username: this.loginForm.value.username || "",
-            password: this.loginForm.value.password || "",
+            Username: this.loginForm.value.username || "",
+            Password: this.loginForm.value.password || "",
         };
 
         if (this.loginForm.valid) {
