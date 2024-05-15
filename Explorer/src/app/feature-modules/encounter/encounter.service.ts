@@ -64,10 +64,9 @@ export class EncounterService {
 
     getEncountersInRangeOf(
         userPositionWithRange: UserPositionWithRange,
-    ): Observable<Encounter[]> {
-        return this.http.post<Encounter[]>(
-            environment.apiHost + "tourist/encounter/in-range-of",
-            userPositionWithRange,
+    ): Observable<any> {
+        return this.http.get<any>(
+            environment.apiHost + "tourist/encountertours/in-range-of",
         );
     }
 

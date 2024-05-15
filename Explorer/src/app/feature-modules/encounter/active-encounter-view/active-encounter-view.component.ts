@@ -243,8 +243,8 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
         userPosition: UserPositionWithRange,
     ) {
         this.service.getEncountersInRangeOf(userPosition).subscribe({
-            next: (result: Encounter[]) => {
-                this.filteredEncounters = result;
+            next: (result: any) => {
+                this.filteredEncounters = result.list;
                 this.filteredEncounters.forEach((enc, i) => {
                     this.filteredEncounters[i].picture = enc.picture.startsWith(
                         "http",
