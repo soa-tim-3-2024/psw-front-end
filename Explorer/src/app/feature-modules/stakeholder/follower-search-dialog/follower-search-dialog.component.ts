@@ -32,12 +32,14 @@ export class FollowerSearchDialogComponent implements OnInit {
         this.userId = this.data.userId;
         this.username = this.data.username;
         this.loadFollowings();
-        console.log(this.followings)
+        console.log(this.followings);
     }
     loadFollowings() {
-        this.service.getUserFollowings(this.userId.toString()).subscribe(result => {
-            this.followings = result;
-        });
+        this.service
+            .getUserFollowings(this.userId.toString())
+            .subscribe(result => {
+                this.followings = result.list;
+            });
     }
     follow(id: number) {
         var clicked = this.users.find(u => u.id == id);
@@ -45,10 +47,12 @@ export class FollowerSearchDialogComponent implements OnInit {
             const followCreate1: NewFollowing = {
                 userId: this.userId.toString(),
                 username: this.username,
-                profileImage: 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg',
+                profileImage:
+                    "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg",
                 followingUserId: clicked.id.toString(),
                 followingUsername: clicked.username,
-                followingProfileImage: 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'
+                followingProfileImage:
+                    "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg",
             };
             this.service.createNewFollowing(followCreate1).subscribe({
                 next: (result: any) => {

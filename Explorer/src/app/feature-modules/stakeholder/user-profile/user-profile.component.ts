@@ -35,7 +35,7 @@ export class UserProfileComponent implements OnInit {
     showFollowings: boolean = false;
     bioMarkdown: string;
     wallet: Wallet;
-    recommendations: UserFollowing[] = []
+    recommendations: UserFollowing[] = [];
 
     constructor(
         private authService: AuthService,
@@ -67,39 +67,46 @@ export class UserProfileComponent implements OnInit {
         });
     }
     loadFollowings() {
-        this.service.getUserFollowings(this.user.id.toString()).subscribe(result => {
-            this.followings = result;
-            this.followingsCount = this.followings.length;
-            this.followings.forEach(item => {
-                item.followingStatus = true;
+        this.service
+            .getUserFollowings(this.user.id.toString())
+            .subscribe(result => {
+                this.followings = result.list;
+                this.followingsCount = this.followings.length;
+                this.followings.forEach(item => {
+                    item.followingStatus = true;
+                });
+                console.log(this.followings);
             });
-        });
     }
     loadRecommendations() {
-        this.service.getUserRecommendations(this.user.id.toString()).subscribe(result => {
-            this.recommendations = result;
-            this.recommendations.forEach(item => {
-                item.followingStatus = false;
+        this.service
+            .getUserRecommendations(this.user.id.toString())
+            .subscribe(result => {
+                this.recommendations = result;
+                this.recommendations.forEach(item => {
+                    item.followingStatus = false;
+                });
             });
-        });
     }
 
     loadFollowers() {
-        this.service.getUserFollowers(this.user.id.toString()).subscribe(result => {
-            this.followers = result;
-            this.followersCount = this.followers.length;
-            this.followers.forEach(item => {
-                item.followingStatus = false;
+        this.service
+            .getUserFollowers(this.user.id.toString())
+            .subscribe(result => {
+                this.followers = result.list;
+                this.followersCount = this.followers.length;
+                this.followers.forEach(item => {
+                    item.followingStatus = false;
+                });
             });
-        });
     }
     loadWallet() {
-        if(this.user.role !== 'tourist'){
+        if (this.user.role !== "tourist") {
             return;
         }
         this.service.getTouristWallet().subscribe(result => {
             this.wallet = result;
-        })
+        });
     }
     openFollowersDialog(): void {
         const dialogRef = this.dialog.open(FollowDialogComponent, {
@@ -126,18 +133,18 @@ export class UserProfileComponent implements OnInit {
                 user: this.user,
             },
         });
-        console.log(this.recommendations)
+        console.log(this.recommendations);
         dialogRef.afterClosed().subscribe(item => {
             this.loadFollowings();
             this.loadFollowers();
-            console.log(this.recommendations)
+            console.log(this.recommendations);
         });
     }
     openFollowerSearchDialog(): void {
         const dialogRef = this.dialog.open(FollowerSearchDialogComponent, {
             data: {
                 userId: this.user.id,
-                username: this.user.username
+                username: this.user.username,
             },
         });
         dialogRef.afterClosed().subscribe(item => {
@@ -147,14 +154,17 @@ export class UserProfileComponent implements OnInit {
     }
 
     openRecommendationDialog(): void {
-        const dialogRef = this.dialog.open(FollowerRecommendationDialogComponent, {
-            data: {
-                userId: this.user.id,
-                username: this.user.username,
-                followings: this.followings,
-                users: this.recommendations,
+        const dialogRef = this.dialog.open(
+            FollowerRecommendationDialogComponent,
+            {
+                data: {
+                    userId: this.user.id,
+                    username: this.user.username,
+                    followings: this.followings,
+                    users: this.recommendations,
+                },
             },
-        });
+        );
         dialogRef.afterClosed().subscribe(item => {
             this.loadFollowings();
             this.loadFollowers();
@@ -175,7 +185,7 @@ export class UserProfileComponent implements OnInit {
             },
         });
     }
-    openClubsDialog(){
+    openClubsDialog() {
         this.dialog.open(UserClubsDialogComponent, {
             data: {
                 userId: this.user.id,

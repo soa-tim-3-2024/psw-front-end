@@ -27,6 +27,7 @@ import { Problem } from "../marketplace/model/problem.model";
 import { NewFollowing } from "./model/new-following.mode";
 import { UserFollowing } from "./model/user-following.model";
 import { UnfollowUser } from "./model/unfollow-user.model";
+import { ResultModel } from "./model/resultModel";
 
 @Injectable({
     providedIn: "root",
@@ -90,13 +91,13 @@ export class StakeholderService {
     }
     //nove funkcije za dobavljane pracenih korisnika iz golang-a
     //------------------------------------------------------
-    getUserFollowers(id: string): Observable<UserFollowing[]> {
-        return this.http.get<UserFollowing[]>(
+    getUserFollowers(id: string): Observable<any> {
+        return this.http.get<any>(
             environment.apiHost + "follower/user-followers/" + id,
         );
     }
-    getUserFollowings(id: string): Observable<UserFollowing[]> {
-        return this.http.get<UserFollowing[]>(
+    getUserFollowings(id: string): Observable<any> {
+        return this.http.get<any>(
             environment.apiHost + "follower/user-followings/" + id,
         );
     }

@@ -22,7 +22,7 @@ export class FollowerRecommendationDialogComponent implements OnInit {
     userId: number;
     username: string;
     faSearch = faSearch;
-    showTable: boolean=false;
+    showTable: boolean = false;
     users: UserFollowing[] = [];
     followings: UserFollowing[] = [];
     constructor(
@@ -35,30 +35,32 @@ export class FollowerRecommendationDialogComponent implements OnInit {
         this.username = this.data.username;
         this.users = this.data.users;
         this.followings = this.data.followings;
-        this.showTable=true;
+        this.showTable = true;
         this.loadFollowings();
         this.loadRecommendations();
-        console.log(this.users)
-        console.log(this.followings)
-        console.log(this.userId)
+        console.log(this.users);
+        console.log(this.followings);
+        console.log(this.userId);
     }
     loadFollowings() {
-        this.service.getUserFollowings(this.userId.toString()).subscribe(result => {
-            this.followings = result;
-        });
+        this.service
+            .getUserFollowings(this.userId.toString())
+            .subscribe(result => {
+                this.followings = result.list;
+            });
     }
-
 
     loadRecommendations() {
-        this.service.getUserRecommendations(this.userId.toString()).subscribe(result => {
-            this.users = result;
-            this.users.forEach(user => {
+        this.service
+            .getUserRecommendations(this.userId.toString())
+            .subscribe(result => {
+                this.users = result;
+                this.users.forEach(user => {
                     user.followingStatus = false;
+                });
             });
-        });
-        console.log(this.users)
+        console.log(this.users);
     }
-
 
     follow(id: string) {
         var clicked = this.users.find(u => u.userId == id);
@@ -66,10 +68,12 @@ export class FollowerRecommendationDialogComponent implements OnInit {
             const followCreate1: NewFollowing = {
                 userId: this.userId.toString(),
                 username: this.username,
-                profileImage: 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg',
+                profileImage:
+                    "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg",
                 followingUserId: clicked.userId,
                 followingUsername: clicked.username,
-                followingProfileImage: 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'
+                followingProfileImage:
+                    "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg",
             };
             this.service.createNewFollowing(followCreate1).subscribe({
                 next: (result: any) => {
@@ -81,5 +85,4 @@ export class FollowerRecommendationDialogComponent implements OnInit {
             });
         }
     }
-
 }
