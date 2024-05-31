@@ -13,6 +13,7 @@
                         <option value="1">Social</option>
                         <option value="2">Hidden</option>
                         <option value="3">Misc</option>
+                        <option value="4">Tour</option>
                     </select>
                     <label>Type</label>
                 </div>
@@ -94,6 +95,22 @@
                     (click)="selectPictureOnMap()"
                 >
                     Select hidden location
+                </div>
+
+                <div>
+                    <div
+                        *ngIf="
+                            encounterType == 4
+                        "
+                        class="btn"
+                    >
+                        Select Tour
+                    </div>
+                    <select [(ngModel)]="selectedTour">
+                        <option *ngFor="let tour of tours" [value]="tour">
+                            {{tour.name}}
+                        </option>
+                    </select>
                 </div>
             </div>
             <div class="btn" (click)="createEncounter()">Create</div>

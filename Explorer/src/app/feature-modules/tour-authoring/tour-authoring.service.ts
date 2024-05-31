@@ -31,8 +31,8 @@ export class TourAuthoringService {
         return this.http.post<Tour>(environment.apiHost + "tour", tour);
     }
 
-    deleteTour(id: number): Observable<Tour> {
-        return this.http.delete<Tour>(environment.apiHost + "tour/" + id);
+    deleteTour(id: any): Observable<Tour> {
+        return this.http.delete<Tour>("https://localhost:44334/api/market-place/tours/" + id);
     }
 
     deleteTourAdmin(id: number): Observable<Tour> {

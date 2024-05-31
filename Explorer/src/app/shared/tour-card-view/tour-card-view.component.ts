@@ -295,6 +295,14 @@ export class TourCardViewComponent implements OnChanges {
         });
     }
 
+    deleteTour(id: any): void {
+        this.tourAuthoringService.deleteTour(id).subscribe({
+            next: () => {
+                
+            },
+        });
+    }
+
     onImageError(event: Event) {
         const target = event.target as HTMLImageElement;
         if (target) {

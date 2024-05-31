@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewChild } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup, Validators, FormsModule } from "@angular/forms";
 import { EncounterService } from "../encounter.service";
 import { Encounter } from "../model/encounter.model";
 import {
@@ -16,6 +16,8 @@ import { xpError } from "src/app/shared/model/error.model";
 import { MapComponent } from "src/app/shared/map/map.component";
 import { Equipment } from "../../administration/model/equipment.model";
 import { faImage, faMapMarker } from "@fortawesome/free-solid-svg-icons";
+import { TourAuthoringService } from "../../tour-authoring/tour-authoring.service";
+import { Tour } from "../../tour-authoring/model/tour.model";
 
 @Component({
     selector: "xp-encounter-form",
@@ -27,6 +29,7 @@ export class EncounterFormComponent implements OnInit {
         private authService: AuthService,
         private service: EncounterService,
         private notifier: NotifierService,
+        private authoringService: TourAuthoringService,
         public dialog: MatDialog,
     ) {
         this.encounterCoords = {
@@ -47,6 +50,8 @@ export class EncounterFormComponent implements OnInit {
     encounterImage: File;
     picturePath: string;
     user: User;
+    tours: Tour[] = [];
+    selectedTour: Tour
     faImage = faImage;
     faMapMarker = faMapMarker;
 
@@ -75,6 +80,16 @@ export class EncounterFormComponent implements OnInit {
     ngOnInit(): void {
         this.authService.user$.subscribe(user => {
             this.user = user;
+            this.authoringService.getTours(this.user.id).subscribe({
+                next: (result: any) => {
+                    this.tours = result.TourResponses;
+                    this.tours = this.tours.filter(x => !x.isDeleted)
+                    this.selectedTour = this.tours[0]
+                },
+                error: (err: any) => {
+                    console.log(err);
+                },
+            });
         });
     }
 
@@ -83,6 +98,7 @@ export class EncounterFormComponent implements OnInit {
     }
 
     createEncounter() {
+        console.log(this.selectedTour)
         const encounter: Encounter = {
             id: 0,
             title: this.encounterForm.value.title || "",
@@ -98,9 +114,10 @@ export class EncounterFormComponent implements OnInit {
             pictureLongitude: this.imageCoords.longitude || 0,
             pictureLatitude: this.imageCoords.latitude || 0,
             challengeDone: false,
+            tourId: this.selectedTour.id
         };
 
-        if (this.encounterType == 1) {
+        if (this.encounterType == 4) {
             if (
                 this.encounterCoords.longitude > 0 &&
                 this.encounterCoords.latitude > 0
@@ -110,9 +127,9 @@ export class EncounterFormComponent implements OnInit {
                         next: result => {
                             encounter.picture = result;
                             this.service
-                                .createSocialEncounter(
+                                .createTourEncounter(
                                     encounter,
-                                    this.user.role == "tourist",
+                                    this.user.role == "author",
                                 )
                                 .subscribe({
                                     next: () => {

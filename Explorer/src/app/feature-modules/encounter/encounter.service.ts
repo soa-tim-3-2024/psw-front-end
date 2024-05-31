@@ -131,6 +131,17 @@ export class EncounterService {
         );
     }
 
+    createTourEncounter(
+        tourEncounter: Encounter,
+        isTourist: Boolean,
+    ): Observable<Encounter> {
+        return this.http.post<Encounter>(
+            environment.apiHost+"author/tour-encounter/create",
+            tourEncounter,
+        );
+    }
+
+
     createHiddenEncounter(
         hiddenEncounter: Encounter,
         isTourist: Boolean,

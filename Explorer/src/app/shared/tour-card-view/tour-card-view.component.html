@@ -49,6 +49,7 @@
                     [icon]="faTrash"
                     tooltipPosition="bottom"
                     pTooltip="delete"
+                    (click)="deleteTour(tour.id); $event.stopPropagation()"
                 />
                 <fa-icon
                     class="tour-action"

@@ -188,6 +188,7 @@ export class TourComponent implements OnInit {
         this.tourAuthoringService.getTours(this.user.id).subscribe({
             next: (result: any) => {
                 this.tours = result.TourResponses;
+                this.tours = this.tours.filter(x => !x.isDeleted)
                 this.totalCount = this.tours.length;
                 for(let i = 0; i < this.tours.length; i++){
                     if(result.TourResponses[i].status == 'Published')

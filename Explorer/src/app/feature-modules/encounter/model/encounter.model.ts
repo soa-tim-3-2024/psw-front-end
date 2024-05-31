@@ -12,6 +12,7 @@ export interface Encounter {
     peopleNumber?: number;
     pictureLongitude?: number;
     pictureLatitude?: number;
+    tourId?: number;
     challengeDone: boolean;
     instances?: number[];
 }
